@@ -11,6 +11,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals"),
+  ...compat.extends("plugin:prettier/recommended"),
   {
     ignores: [
       "node_modules/**",
