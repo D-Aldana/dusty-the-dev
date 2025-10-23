@@ -1,14 +1,22 @@
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Playfair_Display, Montserrat, Bebas_Neue } from 'next/font/google'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const playfair = Playfair_Display({
   subsets: ['latin'],
+  variable: '--font-playfair',
+  weight: ['400', '500', '700'],
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const montserrat = Montserrat({
   subsets: ['latin'],
+  variable: '--font-montserrat',
+  weight: ['400', '500', '600'],
+})
+
+const bebas = Bebas_Neue({
+  subsets: ['latin'],
+  weight: ['400'],
+  variable: '--font-bebas',
 })
 
 export const metadata = {
@@ -23,7 +31,9 @@ export default function RootLayout({ children }) {
       <head lang="en">
         <link rel="icon" href="/icons/icon.png" />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${playfair.variable} ${montserrat.variable} ${bebas.variable}`}
+      >
         {children}
       </body>
     </html>
