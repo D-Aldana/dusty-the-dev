@@ -1,4 +1,4 @@
-const theme = {
+export const theme = {
   light: {
     fontSize: '16px',
     background: '#FEFAE0',
