@@ -1,1 +1,2 @@
-export { HomePlateIcon } from './home-plate'
+export { HomePlateIcon } from "./home-plate"
+export { EnvelopeIcon } from "./envelope"

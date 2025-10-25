@@ -1,9 +1,9 @@
 import { useRef, useEffect } from "react"
 import styled from "@emotion/styled"
 import { gsap } from "gsap"
-import Aurora from "@/components/aurora"
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
 import { HomePlateIcon } from "@/components/icons"
+import { RotatingText as BaseRotatingText } from "@/components/rotating-text"
 import { breakpoints } from "@/styles/theme"
 
 gsap.registerPlugin(DrawSVGPlugin)
@@ -20,7 +20,7 @@ const Container = styled.div`
     ${({ theme }) => theme.cream} 0%,
     ${({ theme }) => theme.background} 50%
   );
-  color: ${({ theme }) => theme.foreground};
+  color: ${({ theme }) => theme.primaryText};
 `
 
 const HeroContainer = styled.div`
@@ -47,6 +47,7 @@ const FlippedIconWrapper = styled.div`
 const Name = styled.h1`
   font-size: 4rem;
   text-align: center;
+  color: ${({ theme }) => theme.foreground};
 
   ${breakpoints.mobile} {
     font-size: 2.5rem;
@@ -81,18 +82,33 @@ const StickerText = styled.p`
 
 const Caption = styled.p`
   font-size: 1.25rem;
+  font-weight: 500;
   max-width: 44rem;
   text-align: center;
   padding: 0 1.5rem;
+  color: ${({ theme }) => theme.primaryText};
 
   ${breakpoints.mobile} {
     font-size: 1.125rem;
   }
 `
 
+const RotatingTextWrapper = styled(BaseRotatingText)`
+  display: inline-block;
+  font-weight: 600;
+  color: ${({ theme }) => theme.primaryText};
+  vertical-align: baseline;
+`
+
 const CTAContainer = styled.div`
   display: flex;
   gap: 1rem;
+`
+
+const Button = styled.button`
+  padding: 0 1rem;
+  background-color: ${(props) =>
+    props.primary ? props.theme.primary : "transparent"};
 `
 
 export const Hero = () => {
@@ -109,9 +125,9 @@ export const Hero = () => {
     const paths = plateRef.current.querySelectorAll("path")
     gsap.fromTo(
       paths,
-      { drawSVG: "0% 20%" },
+      { drawSVG: "0% 40%" },
       {
-        drawSVG: "100% 120%",
+        drawSVG: "100% 140%",
         duration: 2,
         ease: "linear",
         repeat: -1,
@@ -137,9 +153,8 @@ export const Hero = () => {
     plateRef.current.addEventListener("mouseleave", handleMouseLeave)
 
     return () => {
-      plateRef.current.removeEventListener("mouseenter", handleMouseEnter)
-      plateRef.current.removeEventListener("mouseleave", handleMouseLeave)
-      if (spinTween) spinTween.kill()
+      plateRef?.current?.removeEventListener("mouseenter", handleMouseEnter)
+      plateRef?.current?.removeEventListener("mouseleave", handleMouseLeave)
     }
   }, [])
 
@@ -154,10 +169,25 @@ export const Hero = () => {
           <StickerText>FULL-STACK DEVELOPER</StickerText>
         </StickerContainer>
         <Caption>
-          Creating digital experiences with a mix of logic, art, and a love for
-          building cool stuff. Welcome to my corner of the web.
+          Creating digital{" "}
+          <RotatingTextWrapper
+            texts={["products", "solutions"]}
+            splitBy="characters"
+            staggerFrom={"last"}
+            initial={{ y: "-120%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "-120%", opacity: 0 }}
+            staggerDuration={0.025}
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            rotationInterval={3000}
+          />{" "}
+          with a mix of logic, art, and a love for building cool stuff. Welcome
+          to my corner of the web.
         </Caption>
-        <CTAContainer></CTAContainer>
+        <CTAContainer>
+          <Button primary>Get in Touch</Button>
+          <Button>View Projects</Button>
+        </CTAContainer>
       </HeroContainer>
     </Container>
   )

@@ -17,11 +17,12 @@ const Main = styled.main`
 `
 
 export default function HomePage() {
-  const [isDarkMode, setIsDarkMode] = useState(true)
+  const [isDarkMode, setIsDarkMode] = useState(false)
   const currentTheme = isDarkMode ? theme.dark : theme.light
 
   return (
     <ThemeProvider theme={currentTheme}>
+      <button onClick={() => setIsDarkMode(!isDarkMode)}>Toggle Theme</button>
       <Main>
         <Hero />
       </Main>
