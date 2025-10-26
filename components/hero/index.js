@@ -214,7 +214,7 @@ export const Hero = () => {
             rel="noopener noreferrer"
             color={theme.github}
           >
-            <GithubIcon width={28} height={28} />
+            <GithubIcon width={32} height={32} />
           </SocialLink>
           <SocialLink
             href="https://www.linkedin.com/in/dj-aldana/"
@@ -222,7 +222,7 @@ export const Hero = () => {
             rel="noopener noreferrer"
             color={theme.linkedin}
           >
-            <LinkedinIcon width={28} height={28} />
+            <LinkedinIcon width={32} height={32} />
           </SocialLink>
           <SocialLink
             href="https://www.instagram.com/dj_aldana32/"
@@ -230,7 +230,7 @@ export const Hero = () => {
             rel="noopener noreferrer"
             color={theme.instagram}
           >
-            <InstagramIcon width={28} height={28} />
+            <InstagramIcon width={32} height={32} />
           </SocialLink>
         </SocialsContainer>
       </HeroContainer>

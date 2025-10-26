@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head lang="en">
-        <link rel="icon" href="/icons/icon.png" />
+        <link rel="icon" href="/images/icon.png" />
       </head>
       <body
         className={`${playfair.variable} ${montserrat.variable} ${bebas.variable}`}
