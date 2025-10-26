@@ -1,8 +1,9 @@
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, useState } from "react"
 import styled from "@emotion/styled"
+import { useTheme } from "@emotion/react"
 import { gsap } from "gsap"
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { HomePlateIcon } from "@/components/icons"
+import { HomePlateIcon, EnvelopeIcon } from "@/components/icons"
 import { RotatingText as BaseRotatingText } from "@/components/rotating-text"
 import { breakpoints } from "@/styles/theme"
 
@@ -67,7 +68,6 @@ const StickerContainer = styled.div`
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
   border: none;
   color: ${({ theme }) => theme.cream};
-  cursor: pointer;
 `
 
 const StickerText = styled.p`
@@ -98,6 +98,7 @@ const RotatingTextWrapper = styled(BaseRotatingText)`
   font-weight: 600;
   color: ${({ theme }) => theme.primaryText};
   vertical-align: baseline;
+  width: 7ch;
 `
 
 const CTAContainer = styled.div`
@@ -106,12 +107,45 @@ const CTAContainer = styled.div`
 `
 
 const Button = styled.button`
-  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 1.25rem;
+  border: 1px solid ${({ theme }) => theme.olive};
+  padding: 0.5rem 2rem;
   background-color: ${(props) =>
-    props.primary ? props.theme.primary : "transparent"};
+    props.primary ? props.theme.olive : "transparent"};
+  color: ${(props) => (props.primary ? props.theme.cream : props.theme.olive)};
+  cursor: pointer;
+  box-shadow: 4px 8px 6px rgba(0, 0, 0, 0.3);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+
+  &:hover {
+    background-color: ${(props) =>
+      props.primary ? props.theme.forest : props.theme.muted};
+    color: ${(props) => props.theme.cream};
+    transition: background-color 0.3s ease color 0.3s ease;
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
+
+  svg {
+    transform: translateY(-0.09rem);
+  }
+`
+
+const ButtonText = styled.span`
+  font-size: 0.875rem;
+  font-weight: 600;
 `
 
 export const Hero = () => {
+  const theme = useTheme()
+  const [envOpen, setEnvOpen] = useState(false)
   const plateRef = useRef(null)
 
   const plateTimeline = gsap.timeline({ defaults: { ease: "power2.inOut" } })
@@ -171,7 +205,7 @@ export const Hero = () => {
         <Caption>
           Creating digital{" "}
           <RotatingTextWrapper
-            texts={["products", "solutions"]}
+            texts={["solutions", "products", "odysseys"]}
             splitBy="characters"
             staggerFrom={"last"}
             initial={{ y: "-120%", opacity: 0 }}
@@ -179,14 +213,23 @@ export const Hero = () => {
             exit={{ y: "-120%", opacity: 0 }}
             staggerDuration={0.025}
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={3000}
+            rotationInterval={2000}
           />{" "}
           with a mix of logic, art, and a love for building cool stuff. Welcome
           to my corner of the web.
         </Caption>
         <CTAContainer>
-          <Button primary>Get in Touch</Button>
-          <Button>View Projects</Button>
+          <Button
+            primary
+            onMouseEnter={() => setEnvOpen(true)}
+            onMouseLeave={() => setEnvOpen(false)}
+          >
+            <EnvelopeIcon width={20} height={20} open={envOpen} />
+            <ButtonText>Get in Touch</ButtonText>
+          </Button>
+          <Button>
+            <ButtonText>View Projects</ButtonText>
+          </Button>
         </CTAContainer>
       </HeroContainer>
     </Container>

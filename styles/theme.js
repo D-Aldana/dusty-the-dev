@@ -6,6 +6,7 @@ export const breakpoints = {
 export const theme = {
   light: {
     primaryText: "#606C38",
+    secondaryText: "#FEFAE0",
     fontSize: "16px",
     background: "#FEFAE0",
     foreground: "#283618",
@@ -57,6 +58,7 @@ export const theme = {
 
   dark: {
     primaryText: "#FEFAE0",
+    secondaryText: "#606C38",
     background: "#283618",
     foreground: "#FEFAE0",
     card: "#283618",

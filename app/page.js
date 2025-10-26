@@ -17,7 +17,7 @@ const Main = styled.main`
 `
 
 export default function HomePage() {
-  const [isDarkMode, setIsDarkMode] = useState(false)
+  const [isDarkMode, setIsDarkMode] = useState(true)
   const currentTheme = isDarkMode ? theme.dark : theme.light
 
   return (
