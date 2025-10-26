@@ -54,6 +54,11 @@ export const theme = {
     cream: "#FEFAE0",
     bronze: "#DDA15E",
     rust: "#BC6C25",
+
+    // Icon colors
+    github: "#f4cbb2",
+    linkedin: "#0A66C2",
+    instagram: "#C13584",
   },
 
   dark: {
@@ -102,6 +107,11 @@ export const theme = {
     cream: "#FEFAE0",
     bronze: "#DDA15E",
     rust: "#d4823e",
+
+    // Icon colors
+    github: "#f4cbb2",
+    linkedin: "#0A66C2",
+    instagram: "#C13584",
   },
 }
 

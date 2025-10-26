@@ -1,2 +1,5 @@
 export { HomePlateIcon } from "./home-plate"
 export { EnvelopeIcon } from "./envelope"
+export { GithubIcon } from "./github"
+export { LinkedinIcon } from "./linkedin"
+export { InstagramIcon } from "./instagram"

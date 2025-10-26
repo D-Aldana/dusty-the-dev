@@ -1,7 +1,14 @@
+import Link from "next/link"
 import { useState } from "react"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
-import { HomePlateIcon, EnvelopeIcon, GithubIcon } from "@/components/icons"
+import {
+  HomePlateIcon,
+  EnvelopeIcon,
+  GithubIcon,
+  LinkedinIcon,
+  InstagramIcon,
+} from "@/components/icons"
 import { RotatingText as BaseRotatingText } from "@/components/rotating-text"
 import { breakpoints } from "@/styles/theme"
 
@@ -141,7 +148,20 @@ const ButtonText = styled.span`
 
 const SocialsContainer = styled.div`
   display: flex;
+  align-items: center;
   gap: 1.5rem;
+  color: ${({ theme }) => theme.olive};
+  margin-top: 2.5rem;
+`
+
+const SocialLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: ${({ color }) => color};
+  }
 `
 
 export const Hero = () => {
@@ -188,7 +208,30 @@ export const Hero = () => {
           </Button>
         </CTAContainer>
         <SocialsContainer>
-          <GithubIcon width={28} height={28} />
+          <SocialLink
+            href="https://github.com/d-aldana"
+            target="_blank"
+            rel="noopener noreferrer"
+            color={theme.github}
+          >
+            <GithubIcon width={28} height={28} />
+          </SocialLink>
+          <SocialLink
+            href="https://www.linkedin.com/in/dj-aldana/"
+            target="_blank"
+            rel="noopener noreferrer"
+            color={theme.linkedin}
+          >
+            <LinkedinIcon width={28} height={28} />
+          </SocialLink>
+          <SocialLink
+            href="https://www.instagram.com/dj_aldana32/"
+            target="_blank"
+            rel="noopener noreferrer"
+            color={theme.instagram}
+          >
+            <InstagramIcon width={28} height={28} />
+          </SocialLink>
         </SocialsContainer>
       </HeroContainer>
     </Container>
