@@ -16,7 +16,8 @@ export const HomePlateIcon = forwardRef(
     useEffect(() => {
       if (!plateRef.current) return
 
-      const paths = plateRef.current.querySelectorAll("path")
+      const currentPlateRef = plateRef.current
+      const paths = currentPlateRef.querySelectorAll("path")
       gsap.fromTo(
         paths,
         { drawSVG: "0% 40%" },
@@ -29,26 +30,26 @@ export const HomePlateIcon = forwardRef(
       )
 
       const handleMouseEnter = () => {
-        gsap.to(plateRef.current, {
+        gsap.to(currentPlateRef, {
           scale: 1.25,
           duration: 0.75,
           ease: "power2.out",
         })
       }
       const handleMouseLeave = () => {
-        gsap.to(plateRef.current, {
+        gsap.to(currentPlateRef, {
           scale: 1,
           duration: 0.5,
           ease: "power2.out",
         })
       }
 
-      plateRef.current.addEventListener("mouseenter", handleMouseEnter)
-      plateRef.current.addEventListener("mouseleave", handleMouseLeave)
+      currentPlateRef.addEventListener("mouseenter", handleMouseEnter)
+      currentPlateRef.addEventListener("mouseleave", handleMouseLeave)
 
       return () => {
-        plateRef?.current?.removeEventListener("mouseenter", handleMouseEnter)
-        plateRef?.current?.removeEventListener("mouseleave", handleMouseLeave)
+        currentPlateRef.removeEventListener("mouseenter", handleMouseEnter)
+        currentPlateRef.removeEventListener("mouseleave", handleMouseLeave)
       }
     }, [])
 
