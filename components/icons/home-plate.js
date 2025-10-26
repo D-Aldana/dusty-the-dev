@@ -1,31 +1,82 @@
-import { forwardRef } from 'react'
+import { forwardRef, useEffect, useRef } from "react"
+import { gsap } from "gsap"
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
+
+gsap.registerPlugin(DrawSVGPlugin)
 
 export const HomePlateIcon = forwardRef(
   ({ width = 150, height = 150 }, ref) => {
+    const plateRef = useRef(null)
+
+    const plateTimeline = gsap.timeline({ defaults: { ease: "power2.inOut" } })
+    const onClickPlate = () => {
+      plateTimeline.to(plateRef.current, { rotationY: "+=720", duration: 0.75 })
+    }
+
+    useEffect(() => {
+      if (!plateRef.current) return
+
+      const paths = plateRef.current.querySelectorAll("path")
+      gsap.fromTo(
+        paths,
+        { drawSVG: "0% 40%" },
+        {
+          drawSVG: "100% 140%",
+          duration: 2,
+          ease: "linear",
+          repeat: -1,
+        },
+      )
+
+      const handleMouseEnter = () => {
+        gsap.to(plateRef.current, {
+          scale: 1.25,
+          duration: 0.75,
+          ease: "power2.out",
+        })
+      }
+      const handleMouseLeave = () => {
+        gsap.to(plateRef.current, {
+          scale: 1,
+          duration: 0.5,
+          ease: "power2.out",
+        })
+      }
+
+      plateRef.current.addEventListener("mouseenter", handleMouseEnter)
+      plateRef.current.addEventListener("mouseleave", handleMouseLeave)
+
+      return () => {
+        plateRef?.current?.removeEventListener("mouseenter", handleMouseEnter)
+        plateRef?.current?.removeEventListener("mouseleave", handleMouseLeave)
+      }
+    }, [])
+
     return (
       <svg
-        ref={ref}
+        ref={plateRef}
         width={width}
         height={height}
         viewBox="0 0 100.9 89.757706"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
+        onClick={onClickPlate}
       >
         <defs>
           <linearGradient id="linearGradient16">
             <stop
-              style={{ stopColor: '#f0ddc7', stopOpacity: 1 }}
+              style={{ stopColor: "#f0ddc7", stopOpacity: 1 }}
               offset="0.00165563"
             />
             <stop
-              style={{ stopColor: '#fefae0', stopOpacity: 0.498 }}
+              style={{ stopColor: "#fefae0", stopOpacity: 0.498 }}
               offset="1"
             />
           </linearGradient>
 
           <linearGradient id="swatch15">
             <stop
-              style={{ stopColor: 'currentColor', stopOpacity: 1 }}
+              style={{ stopColor: "currentColor", stopOpacity: 1 }}
               offset="0"
             />
           </linearGradient>
@@ -55,14 +106,14 @@ export const HomePlateIcon = forwardRef(
           <path
             className="home-plate-path"
             style={{
-              fill: 'url(#linearGradient18)',
-              fillRule: 'evenodd',
-              stroke: 'url(#linearGradient15)',
+              fill: "url(#linearGradient18)",
+              fillRule: "evenodd",
+              stroke: "url(#linearGradient15)",
               strokeWidth: 3,
-              strokeLinecap: 'round',
-              strokeLinejoin: 'bevel',
+              strokeLinecap: "round",
+              strokeLinejoin: "bevel",
               strokeOpacity: 1,
-              paintOrder: 'stroke fill markers',
+              paintOrder: "stroke fill markers",
             }}
             d="M 55.000001,115 H 155 v 50 L 105,203.95271 55.000001,165 Z"
           />
@@ -72,4 +123,4 @@ export const HomePlateIcon = forwardRef(
   },
 )
 
-HomePlateIcon.displayName = 'HomePlateIcon'
+HomePlateIcon.displayName = "HomePlateIcon"

@@ -1,13 +1,9 @@
-import { useRef, useEffect, useState } from "react"
+import { useState } from "react"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
-import { gsap } from "gsap"
-import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { HomePlateIcon, EnvelopeIcon } from "@/components/icons"
+import { HomePlateIcon, EnvelopeIcon, GithubIcon } from "@/components/icons"
 import { RotatingText as BaseRotatingText } from "@/components/rotating-text"
 import { breakpoints } from "@/styles/theme"
-
-gsap.registerPlugin(DrawSVGPlugin)
 
 const Container = styled.div`
   display: flex;
@@ -143,60 +139,20 @@ const ButtonText = styled.span`
   font-weight: 600;
 `
 
+const SocialsContainer = styled.div`
+  display: flex;
+  gap: 1.5rem;
+`
+
 export const Hero = () => {
   const theme = useTheme()
   const [envOpen, setEnvOpen] = useState(false)
-  const plateRef = useRef(null)
-
-  const plateTimeline = gsap.timeline({ defaults: { ease: "power2.inOut" } })
-  const onClickPlate = () => {
-    plateTimeline.to(plateRef.current, { rotationY: "+=720", duration: 0.75 })
-  }
-
-  useEffect(() => {
-    if (!plateRef.current) return
-
-    const paths = plateRef.current.querySelectorAll("path")
-    gsap.fromTo(
-      paths,
-      { drawSVG: "0% 40%" },
-      {
-        drawSVG: "100% 140%",
-        duration: 2,
-        ease: "linear",
-        repeat: -1,
-      },
-    )
-
-    const handleMouseEnter = () => {
-      gsap.to(plateRef.current, {
-        scale: 1.25,
-        duration: 0.75,
-        ease: "power2.out",
-      })
-    }
-    const handleMouseLeave = () => {
-      gsap.to(plateRef.current, {
-        scale: 1,
-        duration: 0.5,
-        ease: "power2.out",
-      })
-    }
-
-    plateRef.current.addEventListener("mouseenter", handleMouseEnter)
-    plateRef.current.addEventListener("mouseleave", handleMouseLeave)
-
-    return () => {
-      plateRef?.current?.removeEventListener("mouseenter", handleMouseEnter)
-      plateRef?.current?.removeEventListener("mouseleave", handleMouseLeave)
-    }
-  }, [])
 
   return (
     <Container>
       <HeroContainer>
-        <FlippedIconWrapper onClick={onClickPlate}>
-          <HomePlateIcon ref={plateRef} width={100} height={100} />
+        <FlippedIconWrapper>
+          <HomePlateIcon width={100} height={100} />
         </FlippedIconWrapper>
         <Name>Dustin Aldana</Name>
         <StickerContainer>
@@ -231,6 +187,9 @@ export const Hero = () => {
             <ButtonText>View Projects</ButtonText>
           </Button>
         </CTAContainer>
+        <SocialsContainer>
+          <GithubIcon width={28} height={28} />
+        </SocialsContainer>
       </HeroContainer>
     </Container>
   )
