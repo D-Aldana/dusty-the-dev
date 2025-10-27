@@ -6,6 +6,7 @@ import { breakpoints } from "@/styles/theme"
 import { Base } from "@/components/base"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { ImageFolder } from "@/components/image-folder"
+import { MyStory as myStoryContent } from "@/util/consts"
 
 const Container = styled.div`
   display: flex;
@@ -147,6 +148,13 @@ const MyStory = styled(SpotlightCard)`
   background: transparent;
 `
 
+const StoryText = styled.div`
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.75;
+  color: ${({ theme }) => theme.primaryText};
+`
+
 const StatsContainer = styled(SpotlightCard)`
   grid-area: stats;
   background: radial-gradient(
@@ -283,6 +291,7 @@ export const About = forwardRef((props, ref) => {
             <GradientBar />
             <CardTitle>My Story</CardTitle>
           </CardHeader>
+          <StoryText>{myStoryContent.content}</StoryText>
         </MyStory>
 
         <StatsContainer>
