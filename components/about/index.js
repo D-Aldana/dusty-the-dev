@@ -5,6 +5,7 @@ import { useTheme } from "@emotion/react"
 import { breakpoints } from "@/styles/theme"
 import { Base } from "@/components/base"
 import { SpotlightCard } from "@/components/spotlight-card"
+import { ImageFolder } from "@/components/image-folder"
 
 const Container = styled.div`
   display: flex;
@@ -107,8 +108,9 @@ const ImageContainer = styled.div`
     ${({ theme }) => theme.olive},
     ${({ theme }) => theme.rust}
   );
-  overflow: hidden;
+
   box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
+  position: relative;
 `
 
 const GradientBar = styled.div`
@@ -184,6 +186,17 @@ const FactText = styled.p`
   font-weight: 500;
 `
 
+const FolderContainer = styled(ImageFolder)`
+  position: absolute;
+  bottom: -1rem;
+  right: -1rem;
+  z-index: 1;
+
+  ${breakpoints.mobile} {
+    right: 1.5rem;
+  }
+`
+
 export const About = forwardRef((props, ref) => {
   const theme = useTheme()
   return (
@@ -209,6 +222,16 @@ export const About = forwardRef((props, ref) => {
               padding: "5px",
               borderRadius: "1.5rem",
             }}
+          />
+          <FolderContainer
+            color={theme.rust}
+            size={1}
+            items={[
+              "/images/europe.jpg",
+              "/images/baseball.jpg",
+              "/images/headshot.jpg",
+            ]}
+            title="dustin.zip"
           />
         </ImageContainer>
         <MyStory>
