@@ -2,6 +2,7 @@ import { forwardRef } from "react"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 import { breakpoints } from "@/styles/theme"
+import { Base } from "@/components/base"
 
 const Container = styled.div`
   display: flex;
@@ -9,7 +10,9 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
-  gap: 4rem;
+  padding: 0 1.5rem;
+  gap: 1rem;
+  position: relative;
 `
 
 const Header = styled.div`
@@ -49,13 +52,26 @@ const Subtitle = styled.p`
   font-weight: 500;
   color: ${({ theme }) => theme.primaryText};
   margin-top: 1.25rem;
+  text-align: center;
 `
 
-const Content = styled.div``
+const ContentGrid = styled.div`
+  display: grid;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  align-items: start;
+  width: 100%;
+  grid-template-columns: repeat(2, 1fr);
+
+  ${breakpoints.mobile} {
+    grid-template-columns: 1fr;
+  }
+`
 
 export const About = forwardRef((props, ref) => {
   return (
     <Container ref={ref}>
+      <Base title="1ST" />
       <Header>
         <StickerContainer>
           <StickerText>About Me</StickerText>
@@ -64,7 +80,36 @@ export const About = forwardRef((props, ref) => {
           Beyond the code: who I&apos;m not building applications
         </Subtitle>
       </Header>
-      <Content></Content>
+      <ContentGrid>
+        <div
+          style={{
+            backgroundColor: "lightblue",
+            height: "200px",
+            width: "100%",
+          }}
+        />
+        <div
+          style={{
+            backgroundColor: "lightcoral",
+            height: "200px",
+            width: "100%",
+          }}
+        />
+        <div
+          style={{
+            backgroundColor: "lightgreen",
+            height: "200px",
+            width: "100%",
+          }}
+        />
+        <div
+          style={{
+            backgroundColor: "lightgoldenrodyellow",
+            height: "200px",
+            width: "100%",
+          }}
+        />
+      </ContentGrid>
     </Container>
   )
 })
