@@ -9,9 +9,10 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
+  gap: 4rem;
 `
 
-const Title = styled.div`
+const Header = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,26 +36,35 @@ const StickerContainer = styled.div`
 `
 
 const StickerText = styled.p`
-  font-size: 3.75rem;
+  font-size: 3.25rem;
   font-weight: 500;
 
   ${breakpoints.mobile} {
-    font-size: 1.5rem;
+    font-size: 2.25rem;
   }
 `
+
+const Subtitle = styled.p`
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.primaryText};
+  margin-top: 1.25rem;
+`
+
+const Content = styled.div``
 
 export const About = forwardRef((props, ref) => {
   return (
     <Container ref={ref}>
-      <Title>
+      <Header>
         <StickerContainer>
           <StickerText>About Me</StickerText>
         </StickerContainer>
-      </Title>
-      <p>
-        I am a full-stack developer with a passion for building web
-        applications.
-      </p>
+        <Subtitle>
+          Beyond the code: who I&apos;m not building applications
+        </Subtitle>
+      </Header>
+      <Content></Content>
     </Container>
   )
 })

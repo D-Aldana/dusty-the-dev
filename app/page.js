@@ -9,6 +9,7 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.background};
+  position: relative;
 
   p {
     font-family: var(--font-montserrat);
@@ -28,20 +29,23 @@ export default function HomePage() {
 
   return (
     <ThemeProvider theme={currentTheme}>
-      <button
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          zIndex: 1000,
-          backgroundColor: "black",
-          color: "white",
-        }}
-        onClick={() => setIsDarkMode(!isDarkMode)}
-      >
-        Toggle Theme
-      </button>
       <Main>
+        <button
+          style={{
+            position: "fixed",
+            top: "1rem",
+            left: "1rem",
+            zIndex: 1000,
+            backgroundColor: "black",
+            color: "white",
+            padding: "0.5rem 1rem",
+            borderRadius: "0.5rem",
+            cursor: "pointer",
+          }}
+          onClick={() => setIsDarkMode(!isDarkMode)}
+        >
+          Toggle Theme
+        </button>
         <Hero onContinue={scrollToAbout} />
         <About ref={aboutRef} />
       </Main>
