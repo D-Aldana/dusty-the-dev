@@ -15,8 +15,8 @@ const Square = styled.div`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
   position: absolute;
-  top: -1rem;
-  right: 2rem;
+  top: 1.5rem;
+  right: 4.5rem;
   z-index: 1000;
 
   ${breakpoints.mobile} {

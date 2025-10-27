@@ -1,15 +1,17 @@
 import { forwardRef } from "react"
+import Image from "next/image"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 import { breakpoints } from "@/styles/theme"
 import { Base } from "@/components/base"
+import { SpotlightCard } from "@/components/spotlight-card"
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+
   padding: 0 1.5rem;
   gap: 1rem;
   position: relative;
@@ -21,6 +23,7 @@ const Header = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 1rem;
+  margin-top: 2rem;
 `
 
 const StickerContainer = styled.div`
@@ -38,12 +41,14 @@ const StickerContainer = styled.div`
   color: ${({ theme }) => theme.cream};
 `
 
-const StickerText = styled.p`
+const StickerText = styled.h2`
   font-size: 3.25rem;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.15rem;
 
   ${breakpoints.mobile} {
     font-size: 2.25rem;
+    letter-spacing: 0.1rem;
   }
 `
 
@@ -57,18 +62,130 @@ const Subtitle = styled.p`
 
 const ContentGrid = styled.div`
   display: grid;
-  gap: 3rem;
-  margin-bottom: 4rem;
-  align-items: start;
   width: 100%;
-  grid-template-columns: repeat(2, 1fr);
+  height: 100%;
+  column-gap: 3rem;
+  row-gap: 1.5rem;
+  grid-template-columns: 1fr 1fr;
+  padding: 2rem;
+
+  grid-template-rows: repeat(7, 1fr);
+
+  color: ${({ theme }) => theme.primaryText};
+
+  grid-template-areas:
+    "photo myStory"
+    "photo myStory"
+    "photo myStory"
+    "photo myStory"
+    "photo funFacts"
+    "stats funFacts"
+    "stats funFacts";
 
   ${breakpoints.mobile} {
     grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "photo"
+      "myStory"
+      "stats"
+      "funFacts";
+    height: auto;
+    padding: 0.25rem;
   }
 `
 
+const ImageContainer = styled.div`
+  grid-area: photo;
+  width: 100%;
+  height: 650px;
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 5px;
+  background: radial-gradient(
+    circle at top left,
+    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.rust}
+  );
+  overflow: hidden;
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
+`
+
+const GradientBar = styled.div`
+  width: 3rem;
+  height: 0.25rem;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    ${({ theme }) => theme.rust},
+    ${({ theme }) => theme.bronze}
+  );
+`
+
+const CardTitle = styled.h3`
+  font-size: ${(props) => (props.small ? "1.25rem" : "1.5rem")};
+  color: ${({ theme }) => theme.foreground};
+`
+
+const CardHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+`
+
+const MyStory = styled(SpotlightCard)`
+  grid-area: myStory;
+  border-radius: 1.5rem;
+  border: 2px solid ${({ theme }) => theme.olive};
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  background: transparent;
+`
+
+const Stats = styled.div`
+  grid-area: stats;
+  background-color: lightcoral;
+  border-radius: 1rem;
+  height: 100%;
+`
+
+const FunFacts = styled(SpotlightCard)`
+  grid-area: funFacts;
+  border-radius: 1.5rem;
+  border: 2px solid ${({ theme }) => theme.olive};
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+  padding: 2rem;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+`
+
+const FactsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0.75rem;
+  flex: 1;
+`
+
+const FactItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  background: ${({ theme }) => theme.muted};
+  height: 100%;
+  padding: 0.75rem;
+`
+
+const FactText = styled.p`
+  font-size: 0.875rem;
+  font-weight: 500;
+`
+
 export const About = forwardRef((props, ref) => {
+  const theme = useTheme()
   return (
     <Container ref={ref}>
       <Base title="1ST" />
@@ -77,38 +194,81 @@ export const About = forwardRef((props, ref) => {
           <StickerText>About Me</StickerText>
         </StickerContainer>
         <Subtitle>
-          Beyond the code: who I&apos;m not building applications
+          Beyond the code: who am I when I&apos;m not building applications
         </Subtitle>
       </Header>
       <ContentGrid>
-        <div
-          style={{
-            backgroundColor: "lightblue",
-            height: "200px",
-            width: "100%",
-          }}
-        />
-        <div
-          style={{
-            backgroundColor: "lightcoral",
-            height: "200px",
-            width: "100%",
-          }}
-        />
-        <div
-          style={{
-            backgroundColor: "lightgreen",
-            height: "200px",
-            width: "100%",
-          }}
-        />
-        <div
-          style={{
-            backgroundColor: "lightgoldenrodyellow",
-            height: "200px",
-            width: "100%",
-          }}
-        />
+        <ImageContainer>
+          <Image
+            src="/images/hiking.jpg"
+            alt="Dustin's Picture"
+            fill
+            style={{
+              objectFit: "cover",
+              objectPosition: "top",
+              padding: "5px",
+              borderRadius: "1.5rem",
+            }}
+          />
+        </ImageContainer>
+        <MyStory>
+          <CardHeader>
+            <GradientBar />
+            <CardTitle>My Story</CardTitle>
+          </CardHeader>
+        </MyStory>
+
+        <Stats>
+          <p>Bottom Left Content</p>
+        </Stats>
+        <FunFacts>
+          <CardHeader>
+            <GradientBar />
+            <CardTitle small>Fun Facts</CardTitle>
+          </CardHeader>
+          <FactsGrid>
+            <SpotlightCard>
+              <FactItem>
+                ⚾<FactText>Have 7 career home runs</FactText>
+              </FactItem>
+            </SpotlightCard>
+            <SpotlightCard>
+              <FactItem>
+                ✈️<FactText>Visited 10 countries</FactText>
+              </FactItem>
+            </SpotlightCard>
+            <SpotlightCard>
+              <FactItem>
+                🎥
+                <FactText>
+                  Have a YouTube video with over 1.8 million views
+                </FactText>
+              </FactItem>
+            </SpotlightCard>
+            <SpotlightCard>
+              <FactItem>
+                🌎
+                <FactText>
+                  Know every country, its flag, and where it is on the map
+                </FactText>
+              </FactItem>
+            </SpotlightCard>
+            <SpotlightCard>
+              <FactItem>
+                🪂
+                <FactText>Skydived at 13,000 feet in Bologna, Italy</FactText>
+              </FactItem>
+            </SpotlightCard>
+            <SpotlightCard>
+              <FactItem>
+                🎷
+                <FactText>
+                  Played saxophone at a famous jazz club in Havana, Cuba
+                </FactText>
+              </FactItem>
+            </SpotlightCard>
+          </FactsGrid>
+        </FunFacts>
       </ContentGrid>
     </Container>
   )
