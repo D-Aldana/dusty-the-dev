@@ -2,12 +2,14 @@ import Link from "next/link"
 import { useState } from "react"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
+import { motion } from "framer-motion"
 import {
   HomePlateIcon,
   EnvelopeIcon,
   GithubIcon,
   LinkedinIcon,
   InstagramIcon,
+  ChevronDownIcon,
 } from "@/components/icons"
 import { RotatingText as BaseRotatingText } from "@/components/rotating-text"
 import { breakpoints } from "@/styles/theme"
@@ -17,7 +19,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  min-height: 100svh;
   position: relative;
   background-image: linear-gradient(
     to bottom right,
@@ -164,75 +166,130 @@ const SocialLink = styled(Link)`
   }
 `
 
-export const Hero = () => {
+const ContinueButton = styled.button`
+  margin-top: 1rem;
+  cursor: pointer;
+`
+
+export const Hero = ({ onContinue }) => {
   const theme = useTheme()
   const [envOpen, setEnvOpen] = useState(false)
 
   return (
     <Container>
       <HeroContainer>
-        <FlippedIconWrapper>
-          <HomePlateIcon width={100} height={100} />
-        </FlippedIconWrapper>
-        <Name>Dustin Aldana</Name>
-        <StickerContainer>
-          <StickerText>FULL-STACK DEVELOPER</StickerText>
-        </StickerContainer>
-        <Caption>
-          Creating digital{" "}
-          <RotatingTextWrapper
-            texts={["solutions", "products", "odysseys"]}
-            splitBy="characters"
-            staggerFrom={"last"}
-            initial={{ y: "-120%", opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: "-120%", opacity: 0 }}
-            staggerDuration={0.025}
-            transition={{ type: "spring", damping: 30, stiffness: 400 }}
-            rotationInterval={2000}
-          />{" "}
-          with a mix of logic, art, and a love for building cool stuff. Welcome
-          to my corner of the web.
-        </Caption>
-        <CTAContainer>
-          <Button
-            primary
-            onMouseEnter={() => setEnvOpen(true)}
-            onMouseLeave={() => setEnvOpen(false)}
-          >
-            <EnvelopeIcon width={20} height={20} open={envOpen} />
-            <ButtonText>Get in Touch</ButtonText>
-          </Button>
-          <Button>
-            <ButtonText>View Projects</ButtonText>
-          </Button>
-        </CTAContainer>
-        <SocialsContainer>
-          <SocialLink
-            href="https://github.com/d-aldana"
-            target="_blank"
-            rel="noopener noreferrer"
-            color={theme.github}
-          >
-            <GithubIcon width={32} height={32} />
-          </SocialLink>
-          <SocialLink
-            href="https://www.linkedin.com/in/dj-aldana/"
-            target="_blank"
-            rel="noopener noreferrer"
-            color={theme.linkedin}
-          >
-            <LinkedinIcon width={32} height={32} />
-          </SocialLink>
-          <SocialLink
-            href="https://www.instagram.com/dj_aldana32/"
-            target="_blank"
-            rel="noopener noreferrer"
-            color={theme.instagram}
-          >
-            <InstagramIcon width={32} height={32} />
-          </SocialLink>
-        </SocialsContainer>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <FlippedIconWrapper>
+            <HomePlateIcon width={100} height={100} />
+          </FlippedIconWrapper>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          <Name>Dustin Aldana</Name>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.6 }}
+        >
+          <StickerContainer>
+            <StickerText>FULL-STACK DEVELOPER</StickerText>
+          </StickerContainer>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
+        >
+          <Caption>
+            Creating digital{" "}
+            <RotatingTextWrapper
+              texts={["solutions", "products", "odysseys"]}
+              splitBy="characters"
+              staggerFrom="last"
+              initial={{ y: "-120%", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: "-120%", opacity: 0 }}
+              staggerDuration={0.025}
+              transition={{ type: "spring", damping: 30, stiffness: 400 }}
+              rotationInterval={3000}
+            />{" "}
+            with a mix of logic, art, and a love for building cool stuff.
+          </Caption>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.6 }}
+        >
+          <CTAContainer>
+            <Button
+              primary
+              onMouseEnter={() => setEnvOpen(true)}
+              onMouseLeave={() => setEnvOpen(false)}
+            >
+              <EnvelopeIcon width={20} height={20} open={envOpen} />
+              <ButtonText>Get in Touch</ButtonText>
+            </Button>
+            <Button>
+              <ButtonText>View Projects</ButtonText>
+            </Button>
+          </CTAContainer>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.5, duration: 0.6 }}
+        >
+          <SocialsContainer>
+            <SocialLink
+              href="https://github.com/d-aldana"
+              target="_blank"
+              rel="noopener noreferrer"
+              color={theme.github}
+            >
+              <GithubIcon width={32} height={32} delay={1.6} />
+            </SocialLink>
+            <SocialLink
+              href="https://www.linkedin.com/in/dj-aldana/"
+              target="_blank"
+              rel="noopener noreferrer"
+              color={theme.linkedin}
+            >
+              <LinkedinIcon width={32} height={32} delay={1.6} />
+            </SocialLink>
+            <SocialLink
+              href="https://www.instagram.com/dj_aldana32/"
+              target="_blank"
+              rel="noopener noreferrer"
+              color={theme.instagram}
+            >
+              <InstagramIcon width={32} height={32} delay={1.6} />
+            </SocialLink>
+          </SocialsContainer>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.8, duration: 0.6 }}
+        >
+          <ContinueButton onClick={onContinue}>
+            <ChevronDownIcon color={theme.olive} />
+          </ContinueButton>
+        </motion.div>
       </HeroContainer>
     </Container>
   )
