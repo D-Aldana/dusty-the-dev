@@ -80,7 +80,6 @@ export const ImageFolder = ({
     const centerY = window.innerHeight / 2 - rect.height / 2
     const dx = centerX - rect.left
     const dy = centerY - rect.top
-    console.log({ centerX, centerY, dx, dy })
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -144,6 +143,7 @@ export const ImageFolder = ({
                   alt={`Paper ${i + 1}`}
                   fill
                   style={{ objectFit: "cover", borderRadius: "0.5rem" }}
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               )}
             </div>

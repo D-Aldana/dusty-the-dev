@@ -1,5 +1,5 @@
 export const breakpoints = {
-  mobile: "@media (max-width: 768px)",
+  mobile: "@media (max-width: 1024px)",
   desktop: "@media (min-width: 1024px)",
 }
 

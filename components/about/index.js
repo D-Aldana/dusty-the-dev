@@ -79,6 +79,8 @@ const ContentGrid = styled.div`
     "photo myStory"
     "photo myStory"
     "photo myStory"
+    "photo myStory"
+    "photo myStory"
     "photo funFacts"
     "stats funFacts"
     "stats funFacts";
@@ -126,7 +128,7 @@ const GradientBar = styled.div`
 
 const CardTitle = styled.h3`
   font-size: ${(props) => (props.small ? "1.25rem" : "1.5rem")};
-  color: ${({ theme }) => theme.foreground};
+  font-weight: 700;
 `
 
 const CardHeader = styled.div`
@@ -145,11 +147,53 @@ const MyStory = styled(SpotlightCard)`
   background: transparent;
 `
 
-const Stats = styled.div`
+const StatsContainer = styled(SpotlightCard)`
   grid-area: stats;
-  background-color: lightcoral;
-  border-radius: 1rem;
-  height: 100%;
+  background: radial-gradient(
+    circle at bottom left,
+    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.rust}
+  );
+  border: 4px solid ${({ theme }) => theme.olive};
+  border-radius: 1.5rem;
+  box-shadow: 0 30px 50px rgba(0, 0, 0, 0.25);
+  padding: 2rem;
+  color: ${({ theme }) => theme.cream};
+`
+
+const StatsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+`
+
+const Stat = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.muted};
+  opacity: 0.5;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  transition: opacity 0.3s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+    transition: opacity 0.3s ease-in-out;
+  }
+`
+
+const StatNumber = styled.p`
+  font-size: 2rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.bronze};
+`
+
+const StatDesc = styled.p`
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
 `
 
 const FunFacts = styled(SpotlightCard)`
@@ -241,9 +285,29 @@ export const About = forwardRef((props, ref) => {
           </CardHeader>
         </MyStory>
 
-        <Stats>
-          <p>Bottom Left Content</p>
-        </Stats>
+        <StatsContainer>
+          <CardHeader>
+            <CardTitle>Quick Stats</CardTitle>
+          </CardHeader>
+          <StatsGrid>
+            <Stat>
+              <StatNumber>4+</StatNumber>
+              <StatDesc>Years of coding 💻</StatDesc>
+            </Stat>
+            <Stat>
+              <StatNumber>6</StatNumber>
+              <StatDesc>Apps live in production 🚀</StatDesc>
+            </Stat>
+            <Stat>
+              <StatNumber>32</StatNumber>
+              <StatDesc>Estimated open tabs 🧠</StatDesc>
+            </Stat>
+            <Stat>
+              <StatNumber>0</StatNumber>
+              <StatDesc>Merge conflicts (this week) 😅</StatDesc>
+            </Stat>
+          </StatsGrid>
+        </StatsContainer>
         <FunFacts>
           <CardHeader>
             <GradientBar />
