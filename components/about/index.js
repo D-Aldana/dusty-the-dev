@@ -12,6 +12,35 @@ import { MyStory as myStoryContent } from "@/util/consts"
 
 gsap.registerPlugin(ScrollTrigger)
 
+const WaveBackground = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* total area for all waves */
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+
+  background-image:
+    url("/images/wave.svg"), url("/images/wave.svg"), url("/images/wave.svg");
+
+  background-repeat: repeat-x, repeat-x, repeat-x;
+
+  background-size:
+    400px auto,
+    350px auto,
+    300px auto;
+
+  background-position:
+    0px 500px,
+    0px 1000px,
+    0px 1500px;
+
+  /* optional soft fade-in if you animate entrance */
+  transition: opacity 0.6s ease;
+`
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,6 +50,7 @@ const Container = styled.div`
   padding: 0 1.5rem;
   gap: 1rem;
   position: relative;
+  overflow: hidden;
 `
 
 const Header = styled.div`
@@ -369,8 +399,10 @@ export const About = forwardRef((props, ref) => {
 
     return () => mm.revert() // cleanup
   }, [])
+
   return (
     <Container ref={ref}>
+      <WaveBackground />
       <Base title="1ST" ref={baseRef} />
       <Header ref={headerRef}>
         <StickerContainer>
