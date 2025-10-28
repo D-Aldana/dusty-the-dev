@@ -8,6 +8,7 @@ import { breakpoints } from "@/styles/theme"
 import { Base } from "@/components/base"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { ImageFolder } from "@/components/image-folder"
+import { BeyondTheKeyboard } from "@/components/beyond-the-keyboard"
 import { MyStory as myStoryContent } from "@/util/consts"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -17,28 +18,28 @@ const WaveBackground = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 100%; /* total area for all waves */
+  height: 100%;
   z-index: 0;
   pointer-events: none;
   opacity: 0.3;
 
   background-image:
-    url("/images/wave.svg"), url("/images/wave.svg"), url("/images/wave.svg");
+    url("/images/wave.svg"), url("/images/wave.svg"), url("/images/wave.svg"),
+    url("/images/wave.svg");
 
-  background-repeat: repeat-x, repeat-x, repeat-x;
+  background-repeat: repeat-x, repeat-x, repeat-x, repeat-x;
 
   background-size:
-    400px auto,
+    300px auto,
     350px auto,
-    300px auto;
+    300px auto,
+    350px auto;
 
   background-position:
-    0px 500px,
-    0px 1000px,
-    0px 1500px;
-
-  /* optional soft fade-in if you animate entrance */
-  transition: opacity 0.6s ease;
+    0% 10%,
+    0% 30%,
+    0% 55%,
+    0% 75%;
 `
 
 const Container = styled.div`
@@ -149,6 +150,7 @@ const ImageContainer = styled.div`
 
   box-shadow: 0 30px 50px rgba(0, 0, 0, 0.35);
   position: relative;
+  z-index: 1;
 `
 
 const GradientBar = styled.div`
@@ -278,7 +280,7 @@ const FolderContainer = styled(ImageFolder)`
   position: absolute;
   bottom: -1rem;
   right: -1rem;
-  z-index: 1;
+  z-index: 2;
 
   ${breakpoints.mobile} {
     right: 1.5rem;
@@ -516,6 +518,7 @@ export const About = forwardRef((props, ref) => {
           </FactsGrid>
         </FunFacts>
       </ContentGrid>
+      <BeyondTheKeyboard />
     </Container>
   )
 })

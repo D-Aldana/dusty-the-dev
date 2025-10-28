@@ -89,7 +89,7 @@ export const ImageFolder = ({
     })
 
     tl.to(paper, {
-      zIndex: 9999,
+      zIndex: 1000,
       scale: isMobile ? 4 : 8,
       x: index === 0 ? dx - 80 : index === 2 ? dx : dx + 10,
       y: dy,

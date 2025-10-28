@@ -5,7 +5,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
 gsap.registerPlugin(DrawSVGPlugin)
 
 export const InstagramIcon = forwardRef(
-  ({ width = 24, height = 24, delay = 0 }, ref) => {
+  ({ width = 24, height = 24, delay = 0, duration = 2 }, ref) => {
     const iconRef = useRef(null)
     const tlRef = useRef(null)
 
@@ -18,7 +18,7 @@ export const InstagramIcon = forwardRef(
         { drawSVG: "0% 0%" },
         {
           drawSVG: "0% 100%",
-          duration: 2,
+          duration: duration,
           ease: "power2.inOut",
           stagger: 0.1,
           delay: delay,
@@ -44,7 +44,7 @@ export const InstagramIcon = forwardRef(
         icon.removeEventListener("mouseenter", handleEnter)
         icon.removeEventListener("mouseleave", handleLeave)
       }
-    }, [])
+    }, [delay, duration])
     return (
       <svg
         xmlns="http://www.w3.org/2000/svg"

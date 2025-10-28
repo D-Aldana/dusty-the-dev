@@ -5,7 +5,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
 gsap.registerPlugin(DrawSVGPlugin)
 
 export const LinkedinIcon = forwardRef(
-  ({ width = 150, height = 150, delay = 0 }, ref) => {
+  ({ width = 150, height = 150, delay = 0, duration = 2 }, ref) => {
     const iconRef = useRef(null)
     const circleRef = useRef(null)
     const tlRef = useRef(null)
@@ -19,7 +19,7 @@ export const LinkedinIcon = forwardRef(
         { drawSVG: "0% 0%" },
         {
           drawSVG: "0% 100%",
-          duration: 2,
+          duration: duration,
           ease: "power2.inOut",
           stagger: 0.1,
           delay: delay,
@@ -52,7 +52,7 @@ export const LinkedinIcon = forwardRef(
         icon.removeEventListener("mouseenter", handleEnter)
         icon.removeEventListener("mouseleave", handleLeave)
       }
-    }, [])
+    }, [delay, duration])
 
     return (
       <svg

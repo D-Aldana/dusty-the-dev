@@ -181,7 +181,7 @@ export const Hero = ({ onContinue }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
           <FlippedIconWrapper>
             <HomePlateIcon width={100} height={100} />
@@ -191,7 +191,7 @@ export const Hero = ({ onContinue }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
+          transition={{ delay: 0.15, duration: 0.5 }}
         >
           <Name>Dustin Aldana</Name>
         </motion.div>
@@ -199,7 +199,7 @@ export const Hero = ({ onContinue }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.6 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
         >
           <StickerContainer>
             <StickerText>FULL-STACK DEVELOPER</StickerText>
@@ -209,7 +209,7 @@ export const Hero = ({ onContinue }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.6 }}
+          transition={{ delay: 0.45, duration: 0.5 }}
         >
           <Caption>
             Creating digital{" "}
@@ -231,7 +231,7 @@ export const Hero = ({ onContinue }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.6 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
         >
           <CTAContainer>
             <Button
@@ -251,7 +251,7 @@ export const Hero = ({ onContinue }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.5, duration: 0.6 }}
+          transition={{ delay: 0.75, duration: 0.5 }}
         >
           <SocialsContainer>
             <SocialLink
@@ -260,7 +260,7 @@ export const Hero = ({ onContinue }) => {
               rel="noopener noreferrer"
               color={theme.github}
             >
-              <GithubIcon width={32} height={32} delay={1.6} />
+              <GithubIcon width={32} height={32} delay={0.75} duration={1} />
             </SocialLink>
             <SocialLink
               href="https://www.linkedin.com/in/dj-aldana/"
@@ -268,7 +268,7 @@ export const Hero = ({ onContinue }) => {
               rel="noopener noreferrer"
               color={theme.linkedin}
             >
-              <LinkedinIcon width={32} height={32} delay={1.6} />
+              <LinkedinIcon width={32} height={32} delay={0.75} duration={1} />
             </SocialLink>
             <SocialLink
               href="https://www.instagram.com/dj_aldana32/"
@@ -276,7 +276,7 @@ export const Hero = ({ onContinue }) => {
               rel="noopener noreferrer"
               color={theme.instagram}
             >
-              <InstagramIcon width={32} height={32} delay={1.6} />
+              <InstagramIcon width={32} height={32} delay={0.75} duration={1} />
             </SocialLink>
           </SocialsContainer>
         </motion.div>
@@ -284,7 +284,7 @@ export const Hero = ({ onContinue }) => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.8, duration: 0.6 }}
+          transition={{ delay: 0.9, duration: 0.35 }}
         >
           <ContinueButton onClick={onContinue}>
             <ChevronDownIcon color={theme.olive} />
