@@ -1,3 +1,4 @@
+import { forwardRef } from "react"
 import styled from "@emotion/styled"
 import { breakpoints } from "@/styles/theme"
 
@@ -32,10 +33,11 @@ const Title = styled.div`
   text-align: center;
 `
 
-export const Base = ({ title }) => {
+export const Base = forwardRef(({ title }, ref) => {
   return (
-    <Square>
+    <Square ref={ref}>
       <Title>{title}</Title>
     </Square>
   )
-}
+})
+Base.displayName = "Base"

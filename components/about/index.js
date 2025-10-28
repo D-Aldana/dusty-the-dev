@@ -1,12 +1,16 @@
-import { forwardRef } from "react"
+import { forwardRef, useRef, useEffect } from "react"
 import Image from "next/image"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import { breakpoints } from "@/styles/theme"
 import { Base } from "@/components/base"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { ImageFolder } from "@/components/image-folder"
 import { MyStory as myStoryContent } from "@/util/consts"
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
   display: flex;
@@ -26,6 +30,7 @@ const Header = styled.div`
   justify-content: center;
   margin-bottom: 1rem;
   margin-top: 2rem;
+  width: 100%;
 `
 
 const StickerContainer = styled.div`
@@ -202,6 +207,7 @@ const StatDesc = styled.p`
   font-size: 1rem;
   font-weight: 500;
   text-align: center;
+  color: ${({ theme }) => theme.primaryText};
 `
 
 const FunFacts = styled(SpotlightCard)`
@@ -251,10 +257,122 @@ const FolderContainer = styled(ImageFolder)`
 
 export const About = forwardRef((props, ref) => {
   const theme = useTheme()
+
+  const baseRef = useRef(null)
+  const headerRef = useRef(null)
+  const photoRef = useRef(null)
+  const statsRef = useRef(null)
+  const storyRef = useRef(null)
+  const factsRef = useRef(null)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const mm = gsap.matchMedia()
+
+    mm.add(
+      {
+        isDesktop: "(min-width: 1024px)",
+        isMobile: "(max-width: 1024px)",
+      },
+      (context) => {
+        const { isDesktop, isMobile } = context.conditions
+
+        if (baseRef.current) {
+          gsap.from(baseRef.current, {
+            x: isDesktop ? 50 : 20,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: baseRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
+        }
+
+        if (headerRef.current) {
+          gsap.from(headerRef.current, {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
+        }
+
+        if (photoRef.current) {
+          gsap.from(photoRef.current, {
+            x: isDesktop ? -100 : 0,
+            y: isDesktop ? 0 : 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: photoRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
+        }
+
+        if (storyRef.current) {
+          gsap.from(storyRef.current, {
+            x: isDesktop ? 100 : 0,
+            y: isDesktop ? 0 : 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: storyRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
+        }
+
+        if (statsRef.current) {
+          gsap.from(statsRef.current, {
+            y: isDesktop ? 0 : 20,
+            x: isDesktop ? -100 : 0,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: statsRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
+        }
+
+        if (factsRef.current) {
+          gsap.from(factsRef.current, {
+            y: isDesktop ? 0 : 20,
+            x: isDesktop ? 100 : 0,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: factsRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
+        }
+      },
+    )
+
+    return () => mm.revert() // cleanup
+  }, [])
   return (
     <Container ref={ref}>
-      <Base title="1ST" />
-      <Header>
+      <Base title="1ST" ref={baseRef} />
+      <Header ref={headerRef}>
         <StickerContainer>
           <StickerText>About Me</StickerText>
         </StickerContainer>
@@ -263,7 +381,7 @@ export const About = forwardRef((props, ref) => {
         </Subtitle>
       </Header>
       <ContentGrid>
-        <ImageContainer>
+        <ImageContainer ref={photoRef}>
           <Image
             src="/images/hiking.jpg"
             alt="Dustin's Picture"
@@ -286,7 +404,7 @@ export const About = forwardRef((props, ref) => {
             title="dustin.zip"
           />
         </ImageContainer>
-        <MyStory>
+        <MyStory ref={storyRef}>
           <CardHeader>
             <GradientBar />
             <CardTitle>My Story</CardTitle>
@@ -294,7 +412,7 @@ export const About = forwardRef((props, ref) => {
           <StoryText>{myStoryContent.content}</StoryText>
         </MyStory>
 
-        <StatsContainer>
+        <StatsContainer ref={statsRef}>
           <CardHeader>
             <CardTitle>Quick Stats</CardTitle>
           </CardHeader>
@@ -317,7 +435,7 @@ export const About = forwardRef((props, ref) => {
             </Stat>
           </StatsGrid>
         </StatsContainer>
-        <FunFacts>
+        <FunFacts ref={factsRef}>
           <CardHeader>
             <GradientBar />
             <CardTitle small>Fun Facts</CardTitle>
