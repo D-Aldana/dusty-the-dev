@@ -161,7 +161,7 @@ export const BeyondTheKeyboard = () => {
           <HobbyDesc>
             Strategizing and improving my critical thinking one move at a time
             <Link
-              href="https://www.chess.com/member/okaywow123"
+              href={process.env.NEXT_PUBLIC_CHESS_URL}
               passHref
               style={{ marginLeft: "0.5rem", color: theme.accent }}
               target="_blank"
