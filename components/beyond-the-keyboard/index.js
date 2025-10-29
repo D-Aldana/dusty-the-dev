@@ -159,7 +159,7 @@ export const BeyondTheKeyboard = () => {
           <PawnIcon animate width={40} height={40} color={theme.olive} />
           <HobbyTitle>Chess</HobbyTitle>
           <HobbyDesc>
-            Strategizing and improving my critical thinking one move at a time
+            Strategizing and improving my critical thinking one move at a time.
             <Link
               href={process.env.NEXT_PUBLIC_CHESS_URL}
               passHref
