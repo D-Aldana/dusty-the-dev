@@ -169,6 +169,7 @@ const SocialLink = styled(Link)`
 const ContinueButton = styled.button`
   margin-top: 1rem;
   cursor: pointer;
+  padding: 1rem 4rem;
 `
 
 export const Hero = ({ onContinue }) => {
