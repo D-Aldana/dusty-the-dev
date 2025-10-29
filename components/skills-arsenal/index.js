@@ -1,0 +1,242 @@
+import { forwardRef, useRef, useEffect, useState } from "react"
+import styled from "@emotion/styled"
+import { useTheme } from "@emotion/react"
+import { gsap } from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { Base } from "@/components/base"
+import { SpotlightCard } from "@/components/spotlight-card"
+import {
+  FrontendIcon,
+  BackendIcon,
+  DesignIcon,
+  RocketIcon,
+} from "@/components/icons"
+import { breakpoints } from "@/styles/theme"
+
+gsap.registerPlugin(ScrollTrigger)
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 4rem;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+
+  ${breakpoints.mobile} {
+    padding: 0 2rem;
+  }
+`
+
+const Header = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+  width: 100%;
+`
+
+const StickerContainer = styled.div`
+  display: inline-block;
+  background: linear-gradient(
+    to right,
+    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.forest}
+  );
+  padding: 0 2rem;
+  margin-bottom: 1.5rem;
+  transform: rotate(-1deg);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
+  border: none;
+  color: ${({ theme }) => theme.cream};
+`
+
+const StickerText = styled.h2`
+  font-weight: 600;
+  font-size: 3.25rem;
+  letter-spacing: 0.15rem;
+
+  ${breakpoints.mobile} {
+    font-size: 2.25rem;
+    letter-spacing: 0.1rem;
+  }
+`
+
+const Subtitle = styled.p`
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.primaryText};
+  margin-top: 1.25rem;
+  text-align: center;
+`
+
+const SkillsGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 2rem;
+  width: 100%;
+
+  ${breakpoints.mobile} {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+`
+
+const SkillCard = styled(SpotlightCard)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1.25rem;
+  border: 1px solid ${({ theme }) => theme.bronze};
+  border-radius: 0.5rem;
+  gap: 0.75rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  }
+`
+
+const SkillsTitle = styled.p`
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.primaryText};
+  margin-top: 0.75rem;
+`
+
+const SkillsList = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+`
+
+const SkillPill = styled.span`
+  background-color: ${({ theme }) => `${theme.bronze}40`};
+  border: 0.5px solid ${({ theme }) => theme.bronze}70;
+  color: ${({ theme }) => theme.bronze};
+  padding: 0 0.5rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+`
+
+export const SkillsArsenal = forwardRef((props, ref) => {
+  const theme = useTheme()
+  const baseRef = useRef(null)
+  const containerRef = useRef(null)
+  const [animate, setAnimate] = useState(false)
+
+  useEffect(() => {
+    if (!baseRef.current || !containerRef.current) return
+
+    gsap.fromTo(
+      containerRef.current,
+      { opacity: 0, y: 50 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+        },
+      },
+    )
+    gsap.fromTo(
+      baseRef.current,
+      { opacity: 0, x: 50 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 80%",
+        },
+      },
+    )
+  }, [baseRef, containerRef])
+
+  return (
+    <Container ref={containerRef}>
+      <Base title="2ND" ref={baseRef} />
+      <Header>
+        <StickerContainer>
+          <StickerText>Skills Arsenal</StickerText>
+        </StickerContainer>
+        <Subtitle>
+          A well-rounded toolkit for building modern web applications
+        </Subtitle>
+      </Header>
+      <SkillsGrid>
+        <SkillCard>
+          <FrontendIcon
+            width={48}
+            height={48}
+            color={theme.rust}
+            delay={0.15}
+          />
+          <SkillsTitle>Frontend</SkillsTitle>
+          <SkillsList>
+            <SkillPill>React</SkillPill>
+            <SkillPill>React Native</SkillPill>
+            <SkillPill>Next.js</SkillPill>
+            <SkillPill>Javascript</SkillPill>
+            <SkillPill>Typescript</SkillPill>
+            <SkillPill>GSAP</SkillPill>
+          </SkillsList>
+        </SkillCard>
+        <SkillCard>
+          <BackendIcon width={48} height={48} color={theme.rust} delay={0.35} />
+          <SkillsTitle>Backend</SkillsTitle>
+          <SkillsList>
+            <SkillPill>Python</SkillPill>
+            <SkillPill>Django</SkillPill>
+            <SkillPill>Node.js</SkillPill>
+            <SkillPill>PostgreSQL</SkillPill>
+            <SkillPill>MongoDB</SkillPill>
+            <SkillPill>Express.js</SkillPill>
+            <SkillPill>Redis</SkillPill>
+          </SkillsList>
+        </SkillCard>
+        <SkillCard>
+          <RocketIcon width={48} height={48} color={theme.rust} delay={0.55} />
+          <SkillsTitle>Tools</SkillsTitle>
+          <SkillsList>
+            <SkillPill>Git</SkillPill>
+            <SkillPill>Docker</SkillPill>
+            <SkillPill>AWS S3</SkillPill>
+            <SkillPill>Jira</SkillPill>
+            <SkillPill>Heroku</SkillPill>
+            <SkillPill>Vercel</SkillPill>
+          </SkillsList>
+        </SkillCard>
+        <SkillCard>
+          <DesignIcon width={48} height={48} color={theme.rust} delay={0.75} />
+          <SkillsTitle>Design</SkillsTitle>
+          <SkillsList>
+            <SkillPill>Figma</SkillPill>
+            <SkillPill>UI/UX</SkillPill>
+            <SkillPill>Animation</SkillPill>
+            <SkillPill>Responsive Design</SkillPill>
+            <SkillPill>Accessibility</SkillPill>
+          </SkillsList>
+        </SkillCard>
+      </SkillsGrid>
+    </Container>
+  )
+})
+
+SkillsArsenal.displayName = "SkillsArsenal"

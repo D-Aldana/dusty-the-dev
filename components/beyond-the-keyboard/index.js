@@ -24,6 +24,10 @@ const Container = styled.div`
   justify-content: center;
   width: 100%;
   padding: 2rem;
+
+  ${breakpoints.mobile} {
+    padding: 2rem 0;
+  }
 `
 
 const Header = styled.h1`
