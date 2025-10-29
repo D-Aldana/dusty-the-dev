@@ -255,7 +255,7 @@ export const Hero = ({ onContinue }) => {
         >
           <SocialsContainer>
             <SocialLink
-              href="https://github.com/d-aldana"
+              href={process.env.NEXT_PUBLIC_GITHUB_URL}
               target="_blank"
               rel="noopener noreferrer"
               color={theme.github}
@@ -263,7 +263,7 @@ export const Hero = ({ onContinue }) => {
               <GithubIcon width={32} height={32} delay={0.75} duration={1} />
             </SocialLink>
             <SocialLink
-              href="https://www.linkedin.com/in/dj-aldana/"
+              href={process.env.NEXT_PUBLIC_LINKEDIN_URL}
               target="_blank"
               rel="noopener noreferrer"
               color={theme.linkedin}
@@ -271,7 +271,7 @@ export const Hero = ({ onContinue }) => {
               <LinkedinIcon width={32} height={32} delay={0.75} duration={1} />
             </SocialLink>
             <SocialLink
-              href="https://www.instagram.com/dj_aldana32/"
+              href={process.env.NEXT_PUBLIC_INSTAGRAM_URL}
               target="_blank"
               rel="noopener noreferrer"
               color={theme.instagram}
