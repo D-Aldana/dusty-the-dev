@@ -102,11 +102,13 @@ export const Projects = forwardRef((props, ref) => {
     <Container ref={ref}>
       <WaveBackground />
       <Header>Featured Work</Header>
-      <Subtitle>Fun stuff that I&apos;ve worked on</Subtitle>
+      <Subtitle>
+        A mix of fun projects I&apos;ve worked on and a few still in progress
+      </Subtitle>
       <ProjectGrid>
         <ProjectCard
           title="CareMobi"
-          description="A platform that connects patients, families, and healthcare professionals to make managing care easier and more human"
+          description="A platform that connects patients, families, and healthcare professionals to make managing care easier and more human."
           link={process.env.NEXT_PUBLIC_CAREMOBI_URL}
           imgSrc={`/images/caremobi.jpg`}
           skills={[
@@ -134,23 +136,11 @@ export const Projects = forwardRef((props, ref) => {
           imgSrc={"/images/wisdumb.png"}
           skills={["React Native", "OpenAI API", "Expo", "Django"]}
           stats={[
-            { num: "∞", label: "Quotes" },
+            { num: "∞", label: "Wisdom" },
             { num: "0", label: "Sense Made" },
           ]}
           index={1}
         />
-        {/* <ProjectCard
-          title="Rock-Paper-Scissors"
-          description="Don't have a friend to play rock-paper-scissors with? Play against your computer using your webcam"
-          link={process.env.NEXT_PUBLIC_RPS_URL}
-          imgSrc={"/images/rps.png"}
-          skills={["Python", "React", "TensorFlow", "Redis"]}
-          stats={[
-            { num: "1", label: "Humans" },
-            { num: "0", label: "Computers" },
-          ]}
-          index={2}
-        /> */}
         <ProjectCard
           title="CODERS Database"
           description="A centralized database and API for Canadian Energy System modelling and research."
@@ -165,10 +155,47 @@ export const Projects = forwardRef((props, ref) => {
             "Data Visualization",
           ]}
           stats={[
-            { num: ">2m", label: "Data Points" },
+            { num: "> 2m", label: "Data Points" },
             { num: "99.9%", label: "Uptime" },
           ]}
+          linkText="Read about it"
           index={2}
+        />
+        <ProjectCard
+          title="Rock-Paper-Scissors"
+          description="Don't have a friend to play rock-paper-scissors with? Play against your computer using your webcam."
+          link={process.env.NEXT_PUBLIC_RPS_URL}
+          imgSrc={"/images/rps.png"}
+          skills={["Python", "React", "TensorFlow", "Redis"]}
+          stats={[
+            { num: "1", label: "Humans" },
+            { num: "0", label: "Computers" },
+          ]}
+          index={3}
+        />
+        <ProjectCard
+          title="Input Cowork"
+          description="A coworking space web-app that simplifies booking, payments, and member management for coworking spaces."
+          imgSrc={"/images/input.jpg"}
+          skills={["Django", "React", "Stripe", "PostgreSQL", "AWS S3"]}
+          stats={[
+            { num: "50+", label: "Members" },
+            { num: "1000+", label: "Monthly Visits" },
+          ]}
+          link={process.env.NEXT_PUBLIC_COWORK_URL}
+          linkText="Check it out"
+          index={4}
+        />
+        <ProjectCard
+          title="GetUp"
+          description="An alarm app that forces you out of bed even on the coldest of mornings."
+          imgSrc={"/images/alarm.jpg"}
+          stats={[
+            { num: "24198", label: "Coffees" },
+            { num: "0", label: "Snoozes" },
+          ]}
+          skills={["React Native", "Expo", "Typescript"]}
+          index={5}
         />
       </ProjectGrid>
     </Container>

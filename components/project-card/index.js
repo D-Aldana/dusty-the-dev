@@ -149,6 +149,7 @@ const StatLabel = styled.span`
   font-size: 1rem;
   color: ${({ theme }) => theme.cream};
   margin-top: 0.25rem;
+  text-align: center;
 `
 
 const TechText = styled.p`
@@ -168,7 +169,15 @@ const LinkText = styled.span`
 
 export const ProjectCard = forwardRef(
   (
-    { title, description, link = null, imgSrc = null, skills = [], stats = [] },
+    {
+      title,
+      description,
+      link = null,
+      linkText = "Learn more",
+      imgSrc = null,
+      skills = [],
+      stats = [],
+    },
     ref,
   ) => {
     const innerRef = useRef(null)
@@ -286,7 +295,7 @@ export const ProjectCard = forwardRef(
                 rel="noopener noreferrer"
                 style={{ marginTop: "auto", textAlign: "center" }}
               >
-                <LinkText>Learn more &rarr;</LinkText>
+                <LinkText>{linkText} &rarr;</LinkText>
               </Link>
             ) : (
               <LinkText noLink>Coming soon...</LinkText>
