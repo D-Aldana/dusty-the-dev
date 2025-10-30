@@ -33,11 +33,10 @@ export const LinkedinIcon = forwardRef(
         yoyo: true,
       })
 
-      // Animate vertical bounce
       tlRef.current.to(circle, {
-        y: -1.5, // move upward (negative Y = up)
+        y: -1.5,
         duration: 0.3,
-        ease: "power1.inOut", // gives a smooth bounce feel
+        ease: "power1.inOut",
       })
 
       const icon = iconRef.current

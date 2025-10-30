@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react"
 import { ThemeProvider } from "@emotion/react"
 import styled from "@emotion/styled"
 import { theme } from "@/styles/theme"
-import { Hero, About, SkillsArsenal } from "@/components"
+import { Hero, About, SkillsArsenal, Projects } from "@/components"
 
 const Main = styled.main`
   display: flex;
@@ -11,7 +11,7 @@ const Main = styled.main`
   background-color: ${(props) => props.theme.background};
   position: relative;
   padding: 1rem 0;
-  padding-bottom: 4rem;
+  padding-bottom: 8rem;
 
   p {
     font-family: var(--font-montserrat);
@@ -21,6 +21,7 @@ const Main = styled.main`
 export default function HomePage() {
   const aboutRef = useRef(null)
   const skillsRef = useRef(null)
+  const projectsRef = useRef(null)
   const [mounted, setMounted] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(true)
   const currentTheme = isDarkMode ? theme.dark : theme.light
@@ -44,6 +45,7 @@ export default function HomePage() {
         <Hero onContinue={scrollToAbout} />
         <About ref={aboutRef} />
         <SkillsArsenal ref={skillsRef} />
+        <Projects ref={projectsRef} />
       </Main>
     </ThemeProvider>
   )

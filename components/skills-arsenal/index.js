@@ -208,8 +208,8 @@ export const SkillsArsenal = forwardRef((props, ref) => {
             <SkillPill>React</SkillPill>
             <SkillPill>React Native</SkillPill>
             <SkillPill>Next.js</SkillPill>
-            <SkillPill>Javascript</SkillPill>
-            <SkillPill>Typescript</SkillPill>
+            <SkillPill>Expo</SkillPill>
+            <SkillPill>Javascript/Typescript</SkillPill>
             <SkillPill>GSAP</SkillPill>
           </SkillsList>
         </SkillCard>
@@ -235,7 +235,9 @@ export const SkillsArsenal = forwardRef((props, ref) => {
             <SkillPill>AWS S3</SkillPill>
             <SkillPill>Jira</SkillPill>
             <SkillPill>Heroku</SkillPill>
+            <SkillPill>Stripe</SkillPill>
             <SkillPill>Vercel</SkillPill>
+            <SkillPill>Posthog</SkillPill>
           </SkillsList>
         </SkillCard>
         <SkillCard>
