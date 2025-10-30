@@ -36,7 +36,7 @@ const WaveBackground = styled.div`
     350px auto;
 
   background-position:
-    0% 10%,
+    0% 5%,
     0% 30%,
     0% 55%,
     0% 75%;
