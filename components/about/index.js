@@ -210,6 +210,10 @@ const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.5rem;
+
+  ${breakpoints.mobile} {
+    grid-template-columns: 1fr;
+  }
 `
 
 const Stat = styled.div`
@@ -256,6 +260,10 @@ const FunFacts = styled(SpotlightCard)`
 const FactsGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+
+  ${breakpoints.mobile} {
+    grid-template-columns: 1fr;
+  }
   grid-template-rows: 1fr 1fr 1fr;
   gap: 0.75rem;
   flex: 1;
