@@ -10,8 +10,9 @@ const Main = styled.main`
   flex-direction: column;
   background-color: ${(props) => props.theme.background};
   position: relative;
-  padding: 1rem 0;
+  // padding: 1rem 0;
   padding-bottom: 8rem;
+  position: relative;
 
   p {
     font-family: var(--font-montserrat);
@@ -38,11 +39,28 @@ export default function HomePage() {
     }
   }
 
+  const scrollToProjects = () => {
+    if (projectsRef) {
+      projectsRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <ThemeProvider theme={currentTheme}>
       <Main>
-        <button onClick={() => setIsDarkMode(!isDarkMode)}>Toggle Theme</button>
-        <Hero onContinue={scrollToAbout} />
+        <button
+          style={{
+            position: "fixed",
+            top: "1rem",
+            right: "1rem",
+            zIndex: 1000,
+            backgroundColor: currentTheme.bronze,
+          }}
+          onClick={() => setIsDarkMode(!isDarkMode)}
+        >
+          Toggle Theme
+        </button>
+        <Hero onContinue={scrollToAbout} onClickProjects={scrollToProjects} />
         <About ref={aboutRef} />
         <SkillsArsenal ref={skillsRef} />
         <Projects ref={projectsRef} />

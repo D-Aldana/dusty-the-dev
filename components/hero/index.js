@@ -172,7 +172,7 @@ const ContinueButton = styled.button`
   padding: 1rem 4rem;
 `
 
-export const Hero = ({ onContinue }) => {
+export const Hero = ({ onContinue, onClickProjects }) => {
   const theme = useTheme()
   const [envOpen, setEnvOpen] = useState(false)
 
@@ -243,7 +243,7 @@ export const Hero = ({ onContinue }) => {
               <EnvelopeIcon width={20} height={20} open={envOpen} />
               <ButtonText>Get in Touch</ButtonText>
             </Button>
-            <Button>
+            <Button onClick={onClickProjects}>
               <ButtonText>View Projects</ButtonText>
             </Button>
           </CTAContainer>
