@@ -31,6 +31,20 @@ const Container = styled.div`
   }
 `
 
+const WaveBackground = styled.div`
+  position: absolute;
+  top: bottom;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("/images/wave.svg");
+  background-size: 300px auto;
+  background-repeat: repeat-x;
+  background-position: 0% 40%;
+  opacity: 0.3;
+  z-index: 0;
+`
+
 const Header = styled.div`
   display: flex;
   flex-direction: column;
@@ -171,6 +185,7 @@ export const SkillsArsenal = forwardRef((props, ref) => {
 
   return (
     <Container ref={containerRef}>
+      <WaveBackground />
       <Base title="2ND" ref={baseRef} />
       <Header>
         <StickerContainer>
@@ -193,8 +208,8 @@ export const SkillsArsenal = forwardRef((props, ref) => {
             <SkillPill>React</SkillPill>
             <SkillPill>React Native</SkillPill>
             <SkillPill>Next.js</SkillPill>
-            <SkillPill>Javascript</SkillPill>
-            <SkillPill>Typescript</SkillPill>
+            <SkillPill>Expo</SkillPill>
+            <SkillPill>Javascript/Typescript</SkillPill>
             <SkillPill>GSAP</SkillPill>
           </SkillsList>
         </SkillCard>
@@ -220,7 +235,9 @@ export const SkillsArsenal = forwardRef((props, ref) => {
             <SkillPill>AWS S3</SkillPill>
             <SkillPill>Jira</SkillPill>
             <SkillPill>Heroku</SkillPill>
+            <SkillPill>Stripe</SkillPill>
             <SkillPill>Vercel</SkillPill>
+            <SkillPill>Posthog</SkillPill>
           </SkillsList>
         </SkillCard>
         <SkillCard>
