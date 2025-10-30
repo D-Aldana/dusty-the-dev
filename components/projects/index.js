@@ -139,7 +139,7 @@ export const Projects = forwardRef((props, ref) => {
           ]}
           index={1}
         />
-        <ProjectCard
+        {/* <ProjectCard
           title="Rock-Paper-Scissors"
           description="Don't have a friend to play rock-paper-scissors with? Play against your computer using your webcam"
           link={process.env.NEXT_PUBLIC_RPS_URL}
@@ -148,6 +148,25 @@ export const Projects = forwardRef((props, ref) => {
           stats={[
             { num: "1", label: "Humans" },
             { num: "0", label: "Computers" },
+          ]}
+          index={2}
+        /> */}
+        <ProjectCard
+          title="CODERS Database"
+          description="A centralized database and API for Canadian Energy System modelling and research."
+          link={process.env.NEXT_PUBLIC_CODERS_URL}
+          imgSrc={"/images/coders.jpg"}
+          skills={[
+            "Python",
+            "REST",
+            "SQL",
+            "MySQL",
+            "Flask",
+            "Data Visualization",
+          ]}
+          stats={[
+            { num: ">2m", label: "Data Points" },
+            { num: "99.9%", label: "Uptime" },
           ]}
           index={2}
         />
