@@ -31,7 +31,7 @@ const WaveBackground = styled.div`
   background: url("/images/wave.svg");
   background-size: 300px auto;
   background-repeat: repeat-x;
-  background-position: 0% 40%;
+  background-position: 0% 10%;
   opacity: 0.3;
   z-index: 0;
 `
@@ -48,7 +48,7 @@ const Header = styled.h1`
   }
 `
 
-const Subtitle = styled.h3`
+const Subtitle = styled.p`
   font-size: 1.125rem;
   color: ${({ theme }) => theme.primaryText};
   margin-top: 0.5rem;
