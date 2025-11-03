@@ -14,7 +14,7 @@ export const WorkIcon = forwardRef((props, ref) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      class="lucide lucide-briefcase h-6 w-6 text-olive dark:text-bronze"
+      className="lucide lucide-briefcase h-6 w-6 text-olive dark:text-bronze"
       aria-hidden="true"
     >
       <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>

@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from "react"
+import { forwardRef, useEffect, useRef } from "react"
 import styled from "@emotion/styled"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
@@ -224,6 +224,10 @@ const TimelineDate = styled.span`
 
 export const Timeline = forwardRef((props, ref) => {
   const baseRef = useRef(null)
+  const headerRef = useRef(null)
+  const cardRefs = useRef([])
+  const dateRefs = useRef([])
+
   const items = [
     {
       type: "Work",
@@ -293,10 +297,88 @@ export const Timeline = forwardRef((props, ref) => {
     },
   ]
 
+  useEffect(() => {
+    const mm = gsap.matchMedia()
+
+    mm.add(
+      {
+        isDesktop: "(min-width: 1024px)",
+        isMobile: "(max-width: 1024px)",
+      },
+      (context) => {
+        const { isDesktop, isMobile } = context.conditions
+
+        if (baseRef.current) {
+          gsap.from(baseRef.current, {
+            x: isDesktop ? 50 : 20,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: baseRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
+        }
+
+        if (headerRef.current) {
+          gsap.from(headerRef.current, {
+            y: 20,
+            opacity: 0,
+            duration: 0.8,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          })
+        }
+
+        cardRefs.current.forEach((card, index) => {
+          if (card) {
+            gsap.from(card, {
+              y: isDesktop ? 0 : 20,
+              x: isDesktop ? (index % 2 === 0 ? -100 : 100) : 0,
+              opacity: 0,
+              duration: 0.6,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: card,
+                start: "top 80%",
+                toggleActions: "play none none none",
+              },
+            })
+          }
+        })
+
+        dateRefs.current.forEach((date, index) => {
+          if (date) {
+            gsap.from(date, {
+              y: isDesktop ? 0 : 20,
+              x: isDesktop ? (index % 2 === 0 ? 100 : -100) : 0,
+              opacity: 0,
+              duration: 0.6,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: date,
+                start: "top 80%",
+                toggleActions: "play none none none",
+              },
+            })
+          }
+        })
+      },
+    )
+
+    return () => mm.revert()
+  }, [])
+
   return (
     <Container ref={ref}>
       <Base title="3RD" ref={baseRef} />
-      <Header>
+      <Header ref={headerRef}>
         <StickerContainer>
           <StickerText>My Journey</StickerText>
         </StickerContainer>
@@ -307,7 +389,7 @@ export const Timeline = forwardRef((props, ref) => {
       <TimelineContainer>
         {items.map((item, i) => (
           <TimelineItem key={i} reverse={i % 2 === 1}>
-            <TimelineCard>
+            <TimelineCard ref={(el) => (cardRefs.current[i] = el)}>
               <TimelineHeaderWrapper>
                 <TimelineHeaderIconWrapper>
                   <item.icon />
@@ -327,7 +409,10 @@ export const Timeline = forwardRef((props, ref) => {
             <TimelineOuterCircle>
               <TimelineInnerCircle />
             </TimelineOuterCircle>
-            <TimelineDateWrapper reverse={i % 2 === 1}>
+            <TimelineDateWrapper
+              reverse={i % 2 === 1}
+              ref={(el) => (dateRefs.current[i] = el)}
+            >
               <TimelineDate>{item.date}</TimelineDate>
             </TimelineDateWrapper>
           </TimelineItem>
