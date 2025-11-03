@@ -42,7 +42,7 @@ const Header = styled.h1`
   }
 `
 
-const Subtitle = styled.h3`
+const Subtitle = styled.p`
   font-size: 1.125rem;
   color: ${({ theme }) => theme.primaryText};
   margin-top: 0.5rem;
