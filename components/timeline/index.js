@@ -1,13 +1,23 @@
 import { forwardRef, useEffect, useRef } from "react"
 import styled from "@emotion/styled"
 import { gsap } from "gsap"
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { useTheme } from "@emotion/react"
 import { Base } from "@/components/base"
-import { EducationIcon, WorkIcon } from "@/components/icons"
+import {
+  EducationIcon,
+  WorkIcon,
+  BaseballIcon,
+  TreesIcon,
+  BulbIcon,
+  CalendarIcon,
+  InputIcon,
+} from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { breakpoints } from "@/styles/theme"
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin)
 
 const Container = styled.div`
   display: flex;
@@ -203,6 +213,7 @@ const TimelineDateWrapper = styled.div`
   width: 100%;
   text-align: ${(props) => (props.reverse ? "right" : "left")};
   margin-top: 0.4rem;
+  position: relative;
 
   ${breakpoints.mobile} {
     text-align: center;
@@ -222,7 +233,23 @@ const TimelineDate = styled.span`
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
 `
 
+const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ theme }) => `${theme.primaryColor}50`};
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+
+  ${breakpoints.mobile} {
+    visibility: hidden;
+  }
+`
 export const Timeline = forwardRef((props, ref) => {
+  const theme = useTheme()
   const baseRef = useRef(null)
   const headerRef = useRef(null)
   const cardRefs = useRef([])
@@ -235,6 +262,7 @@ export const Timeline = forwardRef((props, ref) => {
       company: "Input Logic",
       date: "Oct 2023 - Present",
       icon: WorkIcon,
+      bigIcon: InputIcon,
       desc: [
         "Develop and maintain full-stack applications using Next.js, Django, and React Native",
         "Migrate standalone React Native apps to Expo for improved development efficiency",
@@ -252,6 +280,7 @@ export const Timeline = forwardRef((props, ref) => {
       company: "Celayix Software",
       date: "May 2022 - Aug 2023",
       icon: WorkIcon,
+      bigIcon: CalendarIcon,
       desc: [
         "Led the automated testing team in the implementation of an automated test suite using Selenium",
         "Built a CI/CD pipeline for quicker feedback on code deployments using PyTest parallelization and TeamCity",
@@ -264,6 +293,7 @@ export const Timeline = forwardRef((props, ref) => {
       company: "Institute for Integrated Energy Systems (IESVic)",
       date: "Jan 2021 - Aug 2021",
       icon: WorkIcon,
+      bigIcon: BulbIcon,
       desc: [
         "Designed and built a robust SQL database for the Canadian energy systems grid",
         "Launched a containerized Flask REST API on UVic cloud computing services",
@@ -277,6 +307,7 @@ export const Timeline = forwardRef((props, ref) => {
       company: "University of Victoria",
       date: "Sep 2019 - Aug 2023",
       icon: EducationIcon,
+      bigIcon: TreesIcon,
       desc: [
         "Completed 4 semesters of full-time co-op placements",
         "Gained hands-on experience in software development fundamentals, system design, and teamwork",
@@ -289,6 +320,7 @@ export const Timeline = forwardRef((props, ref) => {
       company: "Vancouver Island University",
       date: "Sep 2017 - Apr 2019",
       icon: EducationIcon,
+      bigIcon: BaseballIcon,
       desc: [
         "Completed first computer science course and discovered a strong passion for programming",
         "Led a team whose design project won the student popularity award in engineering",
@@ -414,6 +446,15 @@ export const Timeline = forwardRef((props, ref) => {
               ref={(el) => (dateRefs.current[i] = el)}
             >
               <TimelineDate>{item.date}</TimelineDate>
+              {item.bigIcon && (
+                <IconWrapper>
+                  <item.bigIcon
+                    height={180}
+                    width={180}
+                    color={`${theme.olive}40`}
+                  />
+                </IconWrapper>
+              )}
             </TimelineDateWrapper>
           </TimelineItem>
         ))}
