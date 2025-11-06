@@ -1,5 +1,6 @@
 import { forwardRef, useRef, useEffect, useState } from "react"
 import styled from "@emotion/styled"
+import { motion } from "framer-motion"
 import { useTheme } from "@emotion/react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -9,6 +10,7 @@ import {
   ContactEnvelope,
   PhoneIcon,
   LocationIcon,
+  AirplaneIcon,
 } from "@/components/icons"
 
 import { breakpoints } from "@/styles/theme"
@@ -21,10 +23,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  padding: 0 4rem;
+  padding: 1rem 4rem;
   gap: 1rem;
   position: relative;
   overflow: hidden;
+  margin-bottom: 1rem;
 
   ${breakpoints.mobile} {
     padding: 0 2rem;
@@ -81,10 +84,11 @@ const ContactContent = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem;
-  gap: 2rem;
+  gap: 6rem;
 
   ${breakpoints.mobile} {
     flex-direction: column;
+    gap: 2rem;
   }
 `
 
@@ -98,8 +102,86 @@ const ContactDetails = styled.div`
 const ContactForm = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 100%;
-  background: blue;
+  border: 4px solid ${({ theme }) => `${theme.bronze}40`};
+  border-radius: 10px;
+  padding: 2rem;
+`
+
+const FormLabel = styled.label`
+  font-size: 1rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.primaryText};
+  margin-bottom: 0.5rem;
+`
+
+const FormInput = styled.input`
+  width: 100%;
+  padding: 0.5rem;
+  border: 2px solid ${({ theme }) => `${theme.bronze}40`};
+  border-radius: 8px;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: ${({ theme }) => theme.primaryText};
+  &:focus {
+    outline: none;
+    border-color: ${({ theme }) => theme.bronze};
+    box-shadow: 0 0 5px ${({ theme }) => theme.bronze};
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => `${theme.primaryText}80`};
+  }
+`
+
+export const SubmitButton = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  white-space: nowrap;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  height: 2.5rem;
+  width: 100%;
+  border-radius: 0.375rem;
+  padding: 0 1.5rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 1rem;
+
+  background: linear-gradient(
+    to right,
+    ${({ theme }) => theme.rust},
+    ${({ theme }) => theme.bronze}
+  );
+  color: ${({ theme }) => theme.cream};
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background: linear-gradient(
+      to right,
+      ${({ theme }) => theme.bronze},
+      ${({ theme }) => theme.rust}
+    );
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px
+      ${({ theme }) => theme.ring || "rgba(255,255,255,0.4)"};
+  }
+
+  &:active {
+    transform: translateY(2px);
+  }
 `
 
 const DetailsHeader = styled.div`
@@ -251,19 +333,106 @@ const IndicatorText = styled.p`
   color: ${({ theme }) => theme.cream};
 `
 
+const Footer = styled.footer`
+  text-align: center;
+  width: 100%;
+  padding: 2rem;
+  color: ${(props) => props.theme.primaryText};
+  font-size: 1rem;
+  font-weight: 600;
+  border-top: 3px solid ${(props) => `${props.theme.bronze}40`};
+  margin-top: 2rem;
+`
+
 export const ContactMe = forwardRef((props, ref) => {
   const theme = useTheme()
+  const headerRef = useRef(null)
+  const leftSideRef = useRef(null)
+  const rightSideRef = useRef(null)
+  const baseRef = useRef(null)
+
+  useEffect(() => {
+    const mm = gsap.matchMedia()
+
+    mm.add(
+      {
+        isDesktop: "(min-width: 1024px)",
+        isMobile: "(max-width: 1023px)",
+      },
+      (context) => {
+        const { isDesktop } = context.conditions
+
+        if (headerRef.current) {
+          gsap.from(headerRef.current, {
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: "top 80%",
+            },
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            ease: "power3.out",
+          })
+        }
+
+        if (leftSideRef.current) {
+          gsap.from(leftSideRef.current, {
+            scrollTrigger: {
+              trigger: leftSideRef.current,
+              start: "top 80%",
+            },
+            opacity: 0,
+            x: isDesktop ? -100 : 0,
+            y: isDesktop ? 0 : 20,
+            duration: 0.6,
+            ease: "power3.out",
+          })
+        }
+
+        if (rightSideRef.current) {
+          gsap.from(rightSideRef.current, {
+            scrollTrigger: {
+              trigger: rightSideRef.current,
+              start: "top 80%",
+            },
+            opacity: 0,
+            x: isDesktop ? 100 : 0,
+            y: isDesktop ? 0 : 20,
+            duration: 0.6,
+            ease: "power3.out",
+          })
+        }
+
+        if (baseRef.current) {
+          gsap.from(baseRef.current, {
+            scrollTrigger: {
+              trigger: baseRef.current,
+              start: "top 80%",
+            },
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            ease: "power3.out",
+          })
+        }
+      },
+    )
+
+    return () => {
+      mm.revert()
+    }
+  }, [])
 
   return (
     <Container ref={ref}>
-      <Header>
+      <Header ref={headerRef}>
         <StickerContainer>
           <StickerText>Contact Me</StickerText>
         </StickerContainer>
         <Subtitle>Ready to build something awesome? Let&apos;s chat!</Subtitle>
       </Header>
       <ContactContent>
-        <ContactDetails>
+        <ContactDetails ref={leftSideRef}>
           <DetailsHeader>
             <Title>Get in Touch</Title>
             <SubtitleText>
@@ -312,8 +481,49 @@ export const ContactMe = forwardRef((props, ref) => {
             </StatusIndicator>
           </AvailabilityBadge>
         </ContactDetails>
-        <ContactForm>Your Contact Form Here</ContactForm>
+        <ContactForm ref={rightSideRef}>
+          <FormLabel htmlFor="name">Your Name</FormLabel>
+          <FormInput
+            type="text"
+            id="name"
+            name="name"
+            required
+            placeholder="Magnus Carlsen"
+          />
+          <FormLabel htmlFor="email">Email Address</FormLabel>
+          <FormInput
+            type="email"
+            id="email"
+            name="email"
+            required
+            placeholder="GMcarlsen@chess.com"
+          />
+          <FormLabel htmlFor="message">Message</FormLabel>
+          <FormInput
+            as="textarea"
+            id="message"
+            name="message"
+            rows="4"
+            required
+          />
+          <SubmitButton type="submit">
+            <AirplaneIcon width={10} height={10} />
+            Send Message
+          </SubmitButton>
+        </ContactForm>
       </ContactContent>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        whileHover={{ cursor: "pointer" }}
+      >
+        <HomePlateIcon width={100} height={100} ref={baseRef} />
+      </motion.div>
+
+      <Footer>
+        &copy; {new Date().getFullYear()} Dustin Aldana. All rights reserved.
+      </Footer>
     </Container>
   )
 })

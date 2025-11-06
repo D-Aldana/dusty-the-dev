@@ -17,8 +17,7 @@ const Main = styled.main`
   flex-direction: column;
   background-color: ${(props) => props.theme.background};
   position: relative;
-  // padding: 1rem 0;
-  padding-bottom: 8rem;
+  padding-bottom: 1rem;
   position: relative;
 
   p {

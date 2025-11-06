@@ -48,6 +48,10 @@ const FlippedIconWrapper = styled.div`
   transform: scaleY(-1);
   cursor: pointer;
   margin-bottom: 0.25rem;
+
+  ${breakpoints.mobile} {
+    margin-top: 0.5rem;
+  }
 `
 
 const Name = styled.h1`
