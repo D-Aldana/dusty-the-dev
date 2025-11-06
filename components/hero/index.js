@@ -172,7 +172,7 @@ const ContinueButton = styled.button`
   padding: 1rem 4rem;
 `
 
-export const Hero = ({ onContinue, onClickProjects }) => {
+export const Hero = ({ onContinue, onClickProjects, onClickContact }) => {
   const theme = useTheme()
   const [envOpen, setEnvOpen] = useState(false)
 
@@ -239,6 +239,7 @@ export const Hero = ({ onContinue, onClickProjects }) => {
               primary
               onMouseEnter={() => setEnvOpen(true)}
               onMouseLeave={() => setEnvOpen(false)}
+              onClick={onClickContact}
             >
               <EnvelopeIcon width={20} height={20} open={envOpen} />
               <ButtonText>Get in Touch</ButtonText>

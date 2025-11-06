@@ -3,7 +3,14 @@ import { useState, useRef, useEffect } from "react"
 import { ThemeProvider } from "@emotion/react"
 import styled from "@emotion/styled"
 import { theme } from "@/styles/theme"
-import { Hero, About, SkillsArsenal, Projects, Timeline } from "@/components"
+import {
+  Hero,
+  About,
+  SkillsArsenal,
+  Projects,
+  Timeline,
+  ContactMe,
+} from "@/components"
 
 const Main = styled.main`
   display: flex;
@@ -24,6 +31,7 @@ export default function HomePage() {
   const skillsRef = useRef(null)
   const projectsRef = useRef(null)
   const timelineRef = useRef(null)
+  const contactRef = useRef(null)
   const [mounted, setMounted] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(true)
   const currentTheme = isDarkMode ? theme.dark : theme.light
@@ -46,6 +54,12 @@ export default function HomePage() {
     }
   }
 
+  const scrollToContact = () => {
+    if (contactRef) {
+      contactRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <ThemeProvider theme={currentTheme}>
       <Main>
@@ -61,11 +75,16 @@ export default function HomePage() {
         >
           Toggle Theme
         </button>
-        <Hero onContinue={scrollToAbout} onClickProjects={scrollToProjects} />
+        <Hero
+          onContinue={scrollToAbout}
+          onClickProjects={scrollToProjects}
+          onClickContact={scrollToContact}
+        />
         <About ref={aboutRef} />
         <SkillsArsenal ref={skillsRef} />
         <Projects ref={projectsRef} />
         <Timeline ref={timelineRef} />
+        <ContactMe ref={contactRef} />
       </Main>
     </ThemeProvider>
   )
