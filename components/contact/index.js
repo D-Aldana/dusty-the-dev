@@ -2,6 +2,7 @@ import { forwardRef, useRef, useEffect, useState } from "react"
 import styled from "@emotion/styled"
 import { motion } from "framer-motion"
 import { useTheme } from "@emotion/react"
+import { useForm } from "react-hook-form"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { SpotlightCard } from "@/components/spotlight-card"
@@ -12,7 +13,7 @@ import {
   LocationIcon,
   AirplaneIcon,
 } from "@/components/icons"
-
+import { sendEmail } from "@/util/sendEmail"
 import { breakpoints } from "@/styles/theme"
 
 gsap.registerPlugin(ScrollTrigger)
@@ -423,6 +424,22 @@ export const ContactMe = forwardRef((props, ref) => {
     }
   }, [])
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm()
+
+  const onSubmit = async (data) => {
+    try {
+      await sendEmail(data)
+      reset()
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <Container ref={ref}>
       <Header ref={headerRef}>
@@ -481,34 +498,41 @@ export const ContactMe = forwardRef((props, ref) => {
             </StatusIndicator>
           </AvailabilityBadge>
         </ContactDetails>
-        <ContactForm ref={rightSideRef}>
+        <ContactForm ref={rightSideRef} onSubmit={handleSubmit(onSubmit)}>
           <FormLabel htmlFor="name">Your Name</FormLabel>
           <FormInput
             type="text"
             id="name"
-            name="name"
-            required
             placeholder="Magnus Carlsen"
+            {...register("name", { required: "Name is required" })}
           />
+
           <FormLabel htmlFor="email">Email Address</FormLabel>
           <FormInput
             type="email"
             id="email"
-            name="email"
-            required
             placeholder="GMcarlsen@chess.com"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
+                message: "Email is not valid",
+              },
+            })}
           />
+
           <FormLabel htmlFor="message">Message</FormLabel>
           <FormInput
             as="textarea"
             id="message"
-            name="message"
-            rows="4"
-            required
+            rows={4}
+            placeholder="Your message here..."
+            {...register("message", { required: "Message is required" })}
           />
-          <SubmitButton type="submit">
+
+          <SubmitButton type="submit" disabled={isSubmitting}>
             <AirplaneIcon width={10} height={10} />
-            Send Message
+            {isSubmitting ? "Sending..." : "Send Message"}
           </SubmitButton>
         </ContactForm>
       </ContactContent>
