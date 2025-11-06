@@ -62,7 +62,7 @@ export default function HomePage() {
   return (
     <ThemeProvider theme={currentTheme}>
       <Main>
-        <button
+        {/* <button
           style={{
             position: "fixed",
             top: "1rem",
@@ -73,7 +73,7 @@ export default function HomePage() {
           onClick={() => setIsDarkMode(!isDarkMode)}
         >
           Toggle Theme
-        </button>
+        </button> */}
         <Hero
           onContinue={scrollToAbout}
           onClickProjects={scrollToProjects}
