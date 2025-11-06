@@ -3,15 +3,21 @@ import { useState, useRef, useEffect } from "react"
 import { ThemeProvider } from "@emotion/react"
 import styled from "@emotion/styled"
 import { theme } from "@/styles/theme"
-import { Hero, About, SkillsArsenal, Projects, Timeline } from "@/components"
+import {
+  Hero,
+  About,
+  SkillsArsenal,
+  Projects,
+  Timeline,
+  ContactMe,
+} from "@/components"
 
 const Main = styled.main`
   display: flex;
   flex-direction: column;
   background-color: ${(props) => props.theme.background};
   position: relative;
-  // padding: 1rem 0;
-  padding-bottom: 8rem;
+  padding-bottom: 1rem;
   position: relative;
 
   p {
@@ -24,6 +30,7 @@ export default function HomePage() {
   const skillsRef = useRef(null)
   const projectsRef = useRef(null)
   const timelineRef = useRef(null)
+  const contactRef = useRef(null)
   const [mounted, setMounted] = useState(false)
   const [isDarkMode, setIsDarkMode] = useState(true)
   const currentTheme = isDarkMode ? theme.dark : theme.light
@@ -46,10 +53,16 @@ export default function HomePage() {
     }
   }
 
+  const scrollToContact = () => {
+    if (contactRef) {
+      contactRef.current.scrollIntoView({ behavior: "smooth" })
+    }
+  }
+
   return (
     <ThemeProvider theme={currentTheme}>
       <Main>
-        <button
+        {/* <button
           style={{
             position: "fixed",
             top: "1rem",
@@ -60,12 +73,17 @@ export default function HomePage() {
           onClick={() => setIsDarkMode(!isDarkMode)}
         >
           Toggle Theme
-        </button>
-        <Hero onContinue={scrollToAbout} onClickProjects={scrollToProjects} />
+        </button> */}
+        <Hero
+          onContinue={scrollToAbout}
+          onClickProjects={scrollToProjects}
+          onClickContact={scrollToContact}
+        />
         <About ref={aboutRef} />
         <SkillsArsenal ref={skillsRef} />
         <Projects ref={projectsRef} />
         <Timeline ref={timelineRef} />
+        <ContactMe ref={contactRef} />
       </Main>
     </ThemeProvider>
   )

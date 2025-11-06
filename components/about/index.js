@@ -440,8 +440,8 @@ export const About = forwardRef((props, ref) => {
             size={1}
             items={[
               "/images/europe.jpg",
+              "/images/banff.jpg",
               "/images/baseball.jpg",
-              "/images/headshot.jpg",
             ]}
             title="dustin.zip"
           />

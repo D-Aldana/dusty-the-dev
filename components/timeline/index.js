@@ -205,7 +205,7 @@ const TimelineDescription = styled.ul`
   padding: 1rem;
   color: ${({ theme }) => theme.primaryColor};
   list-style-type: disc;
-  font-size: 0.75rem;
+  font-size: 0.875rem;
   gap: 0.25rem;
 `
 
@@ -248,6 +248,7 @@ const IconWrapper = styled.div`
     visibility: hidden;
   }
 `
+
 export const Timeline = forwardRef((props, ref) => {
   const theme = useTheme()
   const baseRef = useRef(null)
