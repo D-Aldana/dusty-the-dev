@@ -503,7 +503,6 @@ export const ContactMe = forwardRef((props, ref) => {
           <FormInput
             type="text"
             id="name"
-            placeholder="Magnus Carlsen"
             {...register("name", { required: "Name is required" })}
           />
 
@@ -511,7 +510,6 @@ export const ContactMe = forwardRef((props, ref) => {
           <FormInput
             type="email"
             id="email"
-            placeholder="GMcarlsen@chess.com"
             {...register("email", {
               required: "Email is required",
               pattern: {
