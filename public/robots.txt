@@ -2,4 +2,4 @@ User-agent: *
 Disallow: /api/
 Allow: /
 
-Sitemap: https://www.builtbydustin.com/sitemap.xml
+Sitemap: https://www.builtbydustin.dev/sitemap.xml
