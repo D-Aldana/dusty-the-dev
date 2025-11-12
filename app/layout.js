@@ -26,6 +26,9 @@ export const metadata = {
   alternatives: {
     canonical: "https://www.builtbydustin.com",
   },
+  icons: {
+    icon: "/images/icon.png",
+  },
   keywords: [
     "Dustin Aldana",
     "Full-Stack Developer",
