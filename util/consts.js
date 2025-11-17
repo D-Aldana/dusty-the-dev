@@ -14,7 +14,7 @@ export const MyStory = {
       <p>
         When I&apos;m not coding, you can usually find me at the kickboxing gym,
         strategizing over a game of chess, or being too emotionally invested in
-        my favorite teams (go Blue Jays and Liverpool). I love blending focus
+        my favourite teams (go Blue Jays and Liverpool). I love blending focus
         and fun in all areas of life.
       </p>
       <br />
