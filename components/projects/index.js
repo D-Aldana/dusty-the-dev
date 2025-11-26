@@ -110,7 +110,7 @@ export const Projects = forwardRef((props, ref) => {
           title="CareMobi"
           description="A platform that connects patients, families, and healthcare professionals to make managing care easier and more human."
           link={process.env.NEXT_PUBLIC_CAREMOBI_URL}
-          imgSrc={`/images/caremobi.jpg`}
+          imgSrc={`/images/caremobi.svg`}
           skills={[
             "Next.js",
             "Django",
