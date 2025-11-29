@@ -195,6 +195,8 @@ export const Projects = forwardRef((props, ref) => {
             { num: "0", label: "Snoozes" },
           ]}
           skills={["React Native", "Expo", "Typescript"]}
+          link={process.env.NEXT_PUBLIC_GET_UP_URL}
+          linkText="View on GitHub"
           index={5}
         />
       </ProjectGrid>
