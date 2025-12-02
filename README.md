@@ -9,7 +9,7 @@ Welcome to my personal portfolio website — a space where I showcase my work, s
 ## 🚀 Tech Stack
 
 - **Framework:** [Next.js](https://nextjs.org/)
-- **Styling:** [Emotion](https://emotion.sh/) + CSS animations
+- **Styling:** [Emotion](https://emotion.sh/)
 - **Animations:** [GSAP](https://gsap.com/)
 - **Deployment:** [Vercel](https://vercel.com/)
 - **SEO:** Custom meta tags, Open Graph, robots.txt, sitemap.xml, Google Analytics
