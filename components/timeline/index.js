@@ -261,7 +261,7 @@ export const Timeline = forwardRef((props, ref) => {
       type: "Work",
       title: "Full-Stack Software Developer",
       company: "Input Logic",
-      date: "Oct 2023 - Present",
+      date: "Oct 2024 - Present",
       icon: WorkIcon,
       bigIcon: InputIcon,
       desc: [
