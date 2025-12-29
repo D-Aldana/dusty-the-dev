@@ -1,4 +1,5 @@
 import { Playfair_Display, Montserrat, Bebas_Neue } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
 const playfair = Playfair_Display({
@@ -91,6 +92,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${playfair.variable} ${montserrat.variable} ${bebas.variable}`}
       >
+        <Analytics />
         {children}
       </body>
     </html>
