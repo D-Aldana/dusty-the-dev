@@ -16,7 +16,8 @@ export default function MannaPrivacyPolicy() {
           <h2>Contact</h2>
           <p>
             Questions about your privacy? Email{" "}
-            <a href="mailto:manna@builtbydustin.dev">manna@builtbydustin.dev</a>.
+            <a href="mailto:manna@builtbydustin.dev">manna@builtbydustin.dev</a>
+            .
           </p>
         </>
       }

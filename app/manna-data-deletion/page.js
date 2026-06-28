@@ -18,8 +18,8 @@ export default function MannaDataDeletion() {
             Email{" "}
             <a href="mailto:manna@builtbydustin.dev">manna@builtbydustin.dev</a>{" "}
             with your request. Since reflections are not linked to any personal
-            identifier, we may not be able to locate specific entries on our own,
-            but we will help you complete deletion from within the app.
+            identifier, we may not be able to locate specific entries on our
+            own, but we will help you complete deletion from within the app.
           </p>
         </>
       }

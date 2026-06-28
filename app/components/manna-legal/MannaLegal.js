@@ -14,7 +14,14 @@ const nunito = Nunito({
   variable: "--font-nunito",
 })
 
-export default function MannaLegal({ eyebrow, title, meta, lede, children, contact }) {
+export default function MannaLegal({
+  eyebrow,
+  title,
+  meta,
+  lede,
+  children,
+  contact,
+}) {
   return (
     <main className={`${cormorant.variable} ${nunito.variable} ${styles.root}`}>
       <div className={styles.container}>
