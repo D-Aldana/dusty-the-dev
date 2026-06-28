@@ -1,4 +1,7 @@
-export default function OliveBranch({ className, "aria-hidden": ariaHidden = true }) {
+export default function OliveBranch({
+  className,
+  "aria-hidden": ariaHidden = true,
+}) {
   return (
     <svg
       className={className}
