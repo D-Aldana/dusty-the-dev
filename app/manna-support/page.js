@@ -17,17 +17,17 @@ export default function MannaSupport() {
           <p>
             Email{" "}
             <a href="mailto:manna@builtbydustin.dev">manna@builtbydustin.dev</a>{" "}
-            and we'll get back to you as soon as we can.
+            and we&apos;ll get back to you as soon as we can.
           </p>
         </>
       }
     >
       <h2>How Manna works</h2>
       <p>
-        Write or speak what's on your heart — a worry, a struggle, a question,
-        or a moment of gratitude. Manna responds with one Bible verse, a short
-        reflection, and a prayer prompt. There are no feeds, lists, or
-        notifications — just one verse for the moment you're in.
+        Write or speak what&apos;s on your heart — a worry, a struggle, a
+        question, or a moment of gratitude. Manna responds with one Bible verse,
+        a short reflection, and a prayer prompt. There are no feeds, lists, or
+        notifications — just one verse for the moment you&apos;re in.
       </p>
 
       <h2>Frequently asked questions</h2>
@@ -44,8 +44,8 @@ export default function MannaSupport() {
         </li>
         <li>
           <strong>How do I save or revisit a reflection?</strong> Choose to save
-          a reflection after it's returned, and find it later in the History
-          view.
+          a reflection after it&apos;s returned, and find it later in the
+          History view.
         </li>
         <li>
           <strong>How do I delete a reflection?</strong> Open the History view
@@ -55,7 +55,7 @@ export default function MannaSupport() {
         </li>
         <li>
           <strong>Can I use my voice?</strong> Yes. You can dictate a reflection
-          using your device's speech recognition. Manna prefers on-device
+          using your device&apos;s speech recognition. Manna prefers on-device
           recognition and never stores audio recordings.
         </li>
         <li>
@@ -71,10 +71,10 @@ export default function MannaSupport() {
 
       <h2>Something not working?</h2>
       <p>
-        If you run into a bug or the app isn't behaving as expected, email{" "}
-        <a href="mailto:manna@builtbydustin.dev">manna@builtbydustin.dev</a> with
-        a short description of what happened and your device type (iPhone or
-        Android). We'll take a look and follow up.
+        If you run into a bug or the app isn&apos;t behaving as expected, email{" "}
+        <a href="mailto:manna@builtbydustin.dev">manna@builtbydustin.dev</a>{" "}
+        with a short description of what happened and your device type (iPhone
+        or Android). We&apos;ll take a look and follow up.
       </p>
     </MannaLegal>
   )
