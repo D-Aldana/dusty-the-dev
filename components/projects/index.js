@@ -177,7 +177,13 @@ export const Projects = forwardRef((props, ref) => {
           title="Manna"
           description="A private, distraction-free space for Christians to pour out what they're carrying and receive a single Scripture verse in response."
           imgSrc={"/images/manna.png"}
-          skills={["React Native", "Expo", "TypeScript", "Supabase", "Claude AI"]}
+          skills={[
+            "React Native",
+            "Expo",
+            "TypeScript",
+            "Supabase",
+            "Claude AI",
+          ]}
           stats={[
             { num: "1", label: "Verse / Session" },
             { num: "0", label: "Notifications" },

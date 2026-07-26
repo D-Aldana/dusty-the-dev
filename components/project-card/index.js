@@ -180,7 +180,9 @@ const StoreBadge = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
   opacity: 0.9;
 
   &:hover {
