@@ -174,16 +174,16 @@ export const Projects = forwardRef((props, ref) => {
           index={3}
         />
         <ProjectCard
-          title="Input Cowork"
-          description="A coworking space web-app that simplifies booking, payments, and member management for coworking spaces."
-          imgSrc={"/images/input.jpg"}
-          skills={["Django", "React", "Stripe", "PostgreSQL", "AWS S3"]}
+          title="Manna"
+          description="A private, distraction-free space for Christians to pour out what they're carrying and receive a single Scripture verse in response."
+          imgSrc={"/images/manna.png"}
+          skills={["React Native", "Expo", "TypeScript", "Supabase", "Claude AI"]}
           stats={[
-            { num: "50+", label: "Members" },
-            { num: "1000+", label: "Monthly Visits" },
+            { num: "1", label: "Verse / Session" },
+            { num: "0", label: "Notifications" },
           ]}
-          link={process.env.NEXT_PUBLIC_COWORK_URL}
-          linkText="Check it out"
+          appStoreUrl={process.env.NEXT_PUBLIC_MANNA_IOS_URL}
+          playStoreUrl={process.env.NEXT_PUBLIC_MANNA_ANDROID_URL}
           index={4}
         />
         <ProjectCard

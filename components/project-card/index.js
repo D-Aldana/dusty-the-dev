@@ -167,6 +167,34 @@ const LinkText = styled.span`
   text-align: center;
 `
 
+const StoreBadges = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: auto;
+`
+
+const StoreBadge = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  opacity: 0.9;
+
+  &:hover {
+    transform: translateY(-2px);
+    opacity: 1;
+  }
+
+  img {
+    width: 2.75rem;
+    height: 2.75rem;
+    display: block;
+  }
+`
+
 export const ProjectCard = forwardRef(
   (
     {
@@ -174,6 +202,8 @@ export const ProjectCard = forwardRef(
       description,
       link = null,
       linkText = "Learn more",
+      appStoreUrl = null,
+      playStoreUrl = null,
       imgSrc = null,
       skills = [],
       stats = [],
@@ -288,7 +318,38 @@ export const ProjectCard = forwardRef(
               ))}
             </SkillsList>
 
-            {link ? (
+            {appStoreUrl || playStoreUrl ? (
+              <StoreBadges>
+                {appStoreUrl && (
+                  <StoreBadge
+                    href={appStoreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="/images/app-store-icon.svg"
+                      width={44}
+                      height={44}
+                      alt="Download on the App Store"
+                    />
+                  </StoreBadge>
+                )}
+                {playStoreUrl && (
+                  <StoreBadge
+                    href={playStoreUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Image
+                      src="/images/google-play-icon.svg"
+                      width={44}
+                      height={44}
+                      alt="Get it on Google Play"
+                    />
+                  </StoreBadge>
+                )}
+              </StoreBadges>
+            ) : link ? (
               <Link
                 href={link}
                 target="_blank"
