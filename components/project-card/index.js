@@ -136,7 +136,10 @@ const Actions = styled.div`
   padding-top: 0.15rem;
 `
 
-const PrimaryLink = styled(Link)`
+// styled() on a component forwards every prop, so `back` would reach the <a>
+const PrimaryLink = styled(Link, {
+  shouldForwardProp: (prop) => prop !== "back",
+})`
   font-size: 0.9rem;
   font-weight: 600;
   color: ${({ theme, back }) => (back ? theme.forest : theme.bronze)};
