@@ -69,8 +69,8 @@ const StickerContainer = styled.div`
   display: inline-block;
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.rust}
+    ${({ theme }) => theme.oliveSurface},
+    ${({ theme }) => theme.forest}
   );
   padding: 0 2rem;
   margin-bottom: 1.5rem;
@@ -197,8 +197,8 @@ const StatsContainer = styled(SpotlightCard)`
   grid-area: stats;
   background: radial-gradient(
     circle at bottom left,
-    ${({ theme }) => theme.olive},
-    ${({ theme }) => theme.rust}
+    ${({ theme }) => theme.oliveSurface},
+    ${({ theme }) => theme.forest}
   );
   border: 4px solid ${({ theme }) => theme.olive};
   border-radius: 1.5rem;
@@ -223,14 +223,13 @@ const Stat = styled.div`
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.muted};
-  opacity: 0.5;
   padding: 0.5rem;
   border-radius: 0.75rem;
-  transition: opacity 0.3s ease-in-out;
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease-in-out;
 
   &:hover {
-    opacity: 0.8;
-    transition: opacity 0.3s ease-in-out;
+    border-color: ${({ theme }) => theme.bronze};
   }
 `
 
@@ -438,7 +437,7 @@ export const About = forwardRef((props, ref) => {
             }}
           />
           <FolderContainer
-            color={theme.rust}
+            color={theme.bronze}
             size={1}
             items={[
               "/images/europe.jpg",

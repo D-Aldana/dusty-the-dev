@@ -5,7 +5,7 @@ import { breakpoints } from "@/styles/theme"
 const Square = styled.div`
   width: 5rem;
   height: 5rem;
-  background-color: ${({ theme }) => theme.olive};
+  background-color: ${({ theme }) => theme.oliveSurface};
   display: flex;
   justify-content: center;
   align-items: center;

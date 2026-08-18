@@ -37,9 +37,9 @@ const CardBack = styled(CardFace)`
   background: linear-gradient(
     to right,
     ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.rust}
+    ${({ theme }) => theme.bronzeLight}
   );
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.forest};
   display: flex;
   flex-direction: column;
   transform: rotateY(180deg);
@@ -81,7 +81,7 @@ const ImageWrapper = styled.div`
 const Title = styled.p`
   font-size: 1.5rem;
   font-weight: 700;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme, back }) => (back ? theme.forest : theme.cream)};
   margin-bottom: 0.5rem;
   margin-left: ${({ back }) => (back ? "0" : "0.75rem")};
   z-index: 1;
@@ -110,7 +110,7 @@ const SkillsList = styled.div`
 
 const SkillPill = styled.span`
   background-color: ${({ theme, back }) =>
-    back ? `${theme.forest}90` : `${theme.bronze}40`};
+    back ? `${theme.forest}90` : `${theme.bronze}1f`};
   border: 0.5px solid ${({ theme }) => theme.bronze}70;
   color: ${({ theme, back }) => (back ? theme.cream : theme.bronze)};
   padding: 0 0.5rem;
@@ -147,7 +147,7 @@ const StatNumber = styled.span`
 
 const StatLabel = styled.span`
   font-size: 1rem;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.forest};
   margin-top: 0.25rem;
   text-align: center;
 `
@@ -156,12 +156,12 @@ const TechText = styled.p`
   margin-bottom: 0.25rem;
   font-size: 1rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.forest};
 `
 
 const LinkText = styled.span`
   font-size: 1rem;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.forest};
   text-decoration: ${({ noLink }) => (noLink ? "none" : "underline")};
   margin-top: ${({ noLink }) => (noLink ? "auto" : "1rem")};
   text-align: center;

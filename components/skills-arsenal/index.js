@@ -56,7 +56,7 @@ const StickerContainer = styled.div`
   display: inline-block;
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.oliveSurface},
     ${({ theme }) => theme.forest}
   );
   padding: 0 2rem;
@@ -132,7 +132,7 @@ const SkillsList = styled.div`
 `
 
 const SkillPill = styled.span`
-  background-color: ${({ theme }) => `${theme.bronze}40`};
+  background-color: ${({ theme }) => `${theme.bronze}1f`};
   border: 0.5px solid ${({ theme }) => theme.bronze}70;
   color: ${({ theme }) => theme.bronze};
   padding: 0 0.5rem;

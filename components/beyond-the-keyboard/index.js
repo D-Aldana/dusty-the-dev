@@ -165,7 +165,7 @@ export const BeyondTheKeyboard = () => {
             <Link
               href={process.env.NEXT_PUBLIC_CHESS_URL}
               passHref
-              style={{ marginLeft: "0.5rem", color: theme.accent }}
+              style={{ marginLeft: "0.5rem", color: theme.bronze }}
               target="_blank"
               rel="noopener noreferrer"
             >

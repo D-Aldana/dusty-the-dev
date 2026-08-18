@@ -47,7 +47,7 @@ const StickerContainer = styled.div`
   display: inline-block;
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.oliveSurface},
     ${({ theme }) => theme.forest}
   );
   padding: 0 2rem;
@@ -154,17 +154,17 @@ export const SubmitButton = styled.button`
 
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.rust},
-    ${({ theme }) => theme.bronze}
+    ${({ theme }) => theme.bronze},
+    ${({ theme }) => theme.bronzeLight}
   );
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.forest};
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
   &:hover {
     background: linear-gradient(
       to right,
-      ${({ theme }) => theme.bronze},
-      ${({ theme }) => theme.rust}
+      ${({ theme }) => theme.bronzeLight},
+      ${({ theme }) => theme.bronze}
     );
   }
 
@@ -262,7 +262,7 @@ const AvailabilityBadge = styled(SpotlightCard)`
   width: 100%;
   background: radial-gradient(
     circle at 25% 25%,
-    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.oliveSurface},
     ${({ theme }) => theme.forest}
   );
   color: ${({ theme }) => theme.cream};
@@ -292,7 +292,7 @@ const StatusLabel = styled.p`
 const StatusText = styled.p`
   font-size: 1.5rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.rust};
+  color: ${({ theme }) => theme.cream};
 `
 
 const StatusIndicator = styled.div`

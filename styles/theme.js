@@ -70,9 +70,12 @@ export const theme = {
 
     // Baseball theme colors
     olive: "#606C38",
+    oliveText: "#4A5429",
+    oliveSurface: "#606C38",
     forest: "#283618",
     cream: "#FEFAE0",
     bronze: "#DDA15E",
+    bronzeLight: "#E8B87A",
     rust: "#BC6C25",
 
     // Icon colors
@@ -123,9 +126,12 @@ export const theme = {
 
     // Baseball theme colors (dark mode)
     olive: "#7a8a4f",
+    oliveText: "#9BAA6A", // olive as text on the forest ground
+    oliveSurface: "#606C38", // olive as a ground under cream text
     forest: "#283618",
     cream: "#FEFAE0",
     bronze: "#DDA15E",
+    bronzeLight: "#E8B87A",
     rust: "#d4823e",
 
     // Icon colors

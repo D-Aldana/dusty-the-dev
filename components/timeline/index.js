@@ -42,8 +42,8 @@ const StickerContainer = styled.div`
   display: inline-block;
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.rust}
+    ${({ theme }) => theme.oliveSurface},
+    ${({ theme }) => theme.forest}
   );
   padding: 0 2rem;
   margin-bottom: 1.5rem;
@@ -221,10 +221,10 @@ const TimelineDate = styled.span`
   background: linear-gradient(
     to left,
     ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.rust}
+    ${({ theme }) => theme.bronzeLight}
   );
   border-radius: 1rem;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.forest};
   font-weight: 600;
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
 `
