@@ -61,15 +61,18 @@ const Subtitle = styled.p`
 
 const ProjectGrid = styled.div`
   display: grid;
-  justify-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2.5rem;
-  padding: 2rem 5rem;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: stretch;
+  gap: 2rem;
+  padding-block: 2rem;
   width: 100%;
 
-  ${breakpoints.mobile} {
+  ${breakpoints.tablet} {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 640px) {
     grid-template-columns: 1fr;
-    padding: 1rem 2rem;
   }
 `
 
@@ -125,7 +128,6 @@ export const Projects = forwardRef((props, ref) => {
             { num: "3K+", label: "Users" },
             { num: "4.9", label: "Rating" },
           ]}
-          index={0}
         />
         <ProjectCard
           title="Wisdumb"
@@ -137,13 +139,13 @@ export const Projects = forwardRef((props, ref) => {
             { num: "∞", label: "Wisdom" },
             { num: "0", label: "Sense Made" },
           ]}
-          index={1}
         />
         <ProjectCard
           title="CODERS Database"
           description="A centralized database and API for Canadian Energy System modelling and research."
           link={process.env.NEXT_PUBLIC_CODERS_URL}
           imgSrc={"/images/coders.jpg"}
+          imgFit="cover"
           skills={[
             "Python",
             "REST",
@@ -157,7 +159,6 @@ export const Projects = forwardRef((props, ref) => {
             { num: "99.9%", label: "Uptime" },
           ]}
           linkText="Read about it"
-          index={2}
         />
         <ProjectCard
           title="Rock-Paper-Scissors"
@@ -169,7 +170,6 @@ export const Projects = forwardRef((props, ref) => {
             { num: "1", label: "Humans" },
             { num: "0", label: "Computers" },
           ]}
-          index={3}
         />
         <ProjectCard
           title="Manna"
@@ -188,12 +188,12 @@ export const Projects = forwardRef((props, ref) => {
           ]}
           appStoreUrl={process.env.NEXT_PUBLIC_MANNA_IOS_URL}
           playStoreUrl={process.env.NEXT_PUBLIC_MANNA_ANDROID_URL}
-          index={4}
         />
         <ProjectCard
           title="GetUp"
           description="An alarm app that forces you out of bed even on the coldest of mornings."
           imgSrc={"/images/alarm.jpg"}
+          imgFit="cover"
           stats={[
             { num: "24198", label: "Coffees" },
             { num: "0", label: "Snoozes" },
@@ -201,7 +201,6 @@ export const Projects = forwardRef((props, ref) => {
           skills={["React Native", "Expo", "Typescript"]}
           link={process.env.NEXT_PUBLIC_GET_UP_URL}
           linkText="View on GitHub"
-          index={5}
         />
       </ProjectGrid>
     </Container>
