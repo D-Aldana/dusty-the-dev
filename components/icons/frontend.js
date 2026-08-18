@@ -1,7 +1,7 @@
 import { forwardRef, useRef, useEffect } from "react"
 import { gsap } from "gsap"
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger)
 
@@ -50,7 +50,7 @@ export const FrontendIcon = forwardRef((props, ref) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="lucide lucide-code-xml h-10 w-10"
+      className="lucide lucide-code-xml"
       aria-hidden="true"
     >
       <path d="m18 16 4-4-4-4"></path>

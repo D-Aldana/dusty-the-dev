@@ -68,7 +68,7 @@ const StickerContainer = styled.div`
   display: inline-block;
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.oliveSurface},
     ${({ theme }) => theme.forest}
   );
   padding: 0.75rem 2rem;
@@ -120,11 +120,12 @@ const Button = styled.button`
   align-items: center;
   gap: 0.5rem;
   border-radius: 1.25rem;
-  border: 1px solid ${({ theme }) => theme.olive};
+  border: 1px solid ${({ theme }) => theme.oliveText};
   padding: 0.5rem 2rem;
   background-color: ${(props) =>
-    props.primary ? props.theme.olive : "transparent"};
-  color: ${(props) => (props.primary ? props.theme.cream : props.theme.olive)};
+    props.primary ? props.theme.oliveSurface : "transparent"};
+  color: ${(props) =>
+    props.primary ? props.theme.cream : props.theme.oliveText};
   cursor: pointer;
   box-shadow: 4px 8px 6px rgba(0, 0, 0, 0.3);
   transition:
@@ -293,7 +294,7 @@ export const Hero = ({ onContinue, onClickProjects, onClickContact }) => {
           transition={{ delay: 0.9, duration: 0.35 }}
         >
           <ContinueButton onClick={onContinue}>
-            <ChevronDownIcon color={theme.olive} />
+            <ChevronDownIcon color={theme.olive} width={32} height={32} />
           </ContinueButton>
         </motion.div>
       </HeroContainer>

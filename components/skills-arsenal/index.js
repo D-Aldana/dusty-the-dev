@@ -11,24 +11,21 @@ import {
   DesignIcon,
   RocketIcon,
 } from "@/components/icons"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, container } from "@/styles/theme"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
+  ${container};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  padding: 0 4rem;
   gap: 1rem;
   position: relative;
   overflow: hidden;
-
-  ${breakpoints.mobile} {
-    padding: 0 2rem;
-  }
 `
 
 const WaveBackground = styled.div`
@@ -59,7 +56,7 @@ const StickerContainer = styled.div`
   display: inline-block;
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.oliveSurface},
     ${({ theme }) => theme.forest}
   );
   padding: 0 2rem;
@@ -135,7 +132,7 @@ const SkillsList = styled.div`
 `
 
 const SkillPill = styled.span`
-  background-color: ${({ theme }) => `${theme.bronze}40`};
+  background-color: ${({ theme }) => `${theme.bronze}1f`};
   border: 0.5px solid ${({ theme }) => theme.bronze}70;
   color: ${({ theme }) => theme.bronze};
   padding: 0 0.5rem;
@@ -152,6 +149,7 @@ export const SkillsArsenal = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (!baseRef.current || !containerRef.current) return
+    if (prefersReducedMotion()) return
 
     gsap.fromTo(
       containerRef.current,

@@ -14,25 +14,23 @@ import {
   AirplaneIcon,
 } from "@/components/icons"
 import { sendEmail } from "@/util/sendEmail"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, container } from "@/styles/theme"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
+  ${container};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  padding: 1rem 4rem;
+  padding-block: 1rem;
   gap: 1rem;
   position: relative;
   overflow: hidden;
   margin-bottom: 1rem;
-
-  ${breakpoints.mobile} {
-    padding: 0 2rem;
-  }
 `
 
 const Header = styled.div`
@@ -49,7 +47,7 @@ const StickerContainer = styled.div`
   display: inline-block;
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.oliveSurface},
     ${({ theme }) => theme.forest}
   );
   padding: 0 2rem;
@@ -156,17 +154,17 @@ export const SubmitButton = styled.button`
 
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.rust},
-    ${({ theme }) => theme.bronze}
+    ${({ theme }) => theme.bronze},
+    ${({ theme }) => theme.bronzeLight}
   );
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.forest};
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
   &:hover {
     background: linear-gradient(
       to right,
-      ${({ theme }) => theme.bronze},
-      ${({ theme }) => theme.rust}
+      ${({ theme }) => theme.bronzeLight},
+      ${({ theme }) => theme.bronze}
     );
   }
 
@@ -264,7 +262,7 @@ const AvailabilityBadge = styled(SpotlightCard)`
   width: 100%;
   background: radial-gradient(
     circle at 25% 25%,
-    ${({ theme }) => theme.olive},
+    ${({ theme }) => theme.oliveSurface},
     ${({ theme }) => theme.forest}
   );
   color: ${({ theme }) => theme.cream};
@@ -294,7 +292,7 @@ const StatusLabel = styled.p`
 const StatusText = styled.p`
   font-size: 1.5rem;
   font-weight: 600;
-  color: ${({ theme }) => theme.rust};
+  color: ${({ theme }) => theme.cream};
 `
 
 const StatusIndicator = styled.div`
@@ -353,6 +351,7 @@ export const ContactMe = forwardRef((props, ref) => {
   const baseRef = useRef(null)
 
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const mm = gsap.matchMedia()
 
     mm.add(
@@ -529,7 +528,7 @@ export const ContactMe = forwardRef((props, ref) => {
           />
 
           <SubmitButton type="submit" disabled={isSubmitting}>
-            <AirplaneIcon width={10} height={10} />
+            <AirplaneIcon width={18} height={18} />
             {isSubmitting ? "Sending..." : "Send Message"}
           </SubmitButton>
         </ContactForm>

@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useRef } from "react"
 import styled from "@emotion/styled"
 import { gsap } from "gsap"
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useTheme } from "@emotion/react"
 import { Base } from "@/components/base"
 import {
@@ -15,22 +15,18 @@ import {
   InputIcon,
 } from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, container } from "@/styles/theme"
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin)
 
 const Container = styled.div`
+  ${container};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
   position: relative;
-  padding: 0 8rem;
   overflow: hidden;
-  ${breakpoints.mobile} {
-    padding: 0 2rem;
-  }
 `
 
 const Header = styled.div`
@@ -46,8 +42,8 @@ const StickerContainer = styled.div`
   display: inline-block;
   background: linear-gradient(
     to right,
-    ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.rust}
+    ${({ theme }) => theme.oliveSurface},
+    ${({ theme }) => theme.forest}
   );
   padding: 0 2rem;
   margin-bottom: 1.5rem;
@@ -225,10 +221,10 @@ const TimelineDate = styled.span`
   background: linear-gradient(
     to left,
     ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.rust}
+    ${({ theme }) => theme.bronzeLight}
   );
   border-radius: 1rem;
-  color: ${({ theme }) => theme.cream};
+  color: ${({ theme }) => theme.forest};
   font-weight: 600;
   box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.3);
 `

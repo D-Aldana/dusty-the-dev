@@ -1,7 +1,27 @@
 export const breakpoints = {
   mobile: "@media (max-width: 1024px)",
-  desktop: "@media (min-width: 1024px)",
+  tablet: "@media (min-width: 641px) and (max-width: 1024px)",
+  desktop: "@media (min-width: 1025px)",
 }
+
+export const layout = {
+  maxWidth: "1200px",
+  gutter: "2rem",
+  gutterMobile: "1.25rem",
+}
+
+/* One measure and one gutter for every top-level section, so content aligns
+   down the page instead of each section setting its own edge. */
+export const container = `
+  width: 100%;
+  max-width: ${layout.maxWidth};
+  margin-inline: auto;
+  padding-inline: ${layout.gutter};
+
+  ${breakpoints.mobile} {
+    padding-inline: ${layout.gutterMobile};
+  }
+`
 
 export const theme = {
   light: {
@@ -50,9 +70,12 @@ export const theme = {
 
     // Baseball theme colors
     olive: "#606C38",
+    oliveText: "#4A5429",
+    oliveSurface: "#606C38",
     forest: "#283618",
     cream: "#FEFAE0",
     bronze: "#DDA15E",
+    bronzeLight: "#E8B87A",
     rust: "#BC6C25",
 
     // Icon colors
@@ -103,9 +126,12 @@ export const theme = {
 
     // Baseball theme colors (dark mode)
     olive: "#7a8a4f",
+    oliveText: "#9BAA6A", // olive as text on the forest ground
+    oliveSurface: "#606C38", // olive as a ground under cream text
     forest: "#283618",
     cream: "#FEFAE0",
     bronze: "#DDA15E",
+    bronzeLight: "#E8B87A",
     rust: "#d4823e",
 
     // Icon colors

@@ -1,14 +1,23 @@
-import { forwardRef, useRef, useState } from "react"
+import { forwardRef, useRef, useState, useEffect, useId } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import styled from "@emotion/styled"
 import { gsap } from "gsap"
+import { prefersReducedMotion } from "@/util/motion"
+
+const CARD_HEIGHT = "460px"
+const THUMB_HEIGHT = "160px"
 
 const FlipCard = styled.div`
-  perspective: 1000px;
+  perspective: 1400px;
   width: 100%;
-  max-width: 350px;
-  height: 400px;
+  height: ${CARD_HEIGHT};
+
+  &:hover [data-face],
+  &:focus-within [data-face] {
+    border-color: ${({ theme }) => theme.bronze};
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
 `
 
 const FlipInner = styled.div`
@@ -20,111 +29,158 @@ const FlipInner = styled.div`
 
 const CardFace = styled.div`
   position: absolute;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   backface-visibility: hidden;
-  border: 2.5px solid ${({ theme }) => theme.olive};
-  border-radius: 0.5rem;
+  border: 2px solid ${({ theme }) => theme.olive};
+  border-radius: 0.75rem;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 `
 
 const CardFront = styled(CardFace)`
-  display: grid;
-  grid-template-rows: 1fr 1fr;
+  background-color: ${({ theme }) => theme.forest};
 `
 
 const CardBack = styled(CardFace)`
   background: linear-gradient(
-    to right,
+    to bottom right,
     ${({ theme }) => theme.bronze},
-    ${({ theme }) => theme.rust}
+    ${({ theme }) => theme.bronzeLight}
   );
-  color: ${({ theme }) => theme.cream};
-  display: flex;
-  flex-direction: column;
+  color: ${({ theme }) => theme.forest};
   transform: rotateY(180deg);
-  padding: 1.5rem;
+  padding: 1.25rem;
+  gap: 0.5rem;
 `
 
-const ImageContainer = styled.div`
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-start;
+/* The thumbnail is its own band now: no text sits on it, so the artwork no
+   longer needs a scrim dimming it to two thirds. */
+const Thumb = styled.div`
   position: relative;
-  height: 100%;
-`
-
-const ImageWrapper = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
+  height: ${THUMB_HEIGHT};
+  flex: none;
+  background-color: ${({ theme }) => theme.muted};
+  border-bottom: 1px solid ${({ theme }) => `${theme.olive}`};
 
   img {
-    opacity: 0.635;
-    object-fit: cover;
-  }
-
-  &::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    mix-blend-mode: multiply;
-    pointer-events: none;
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0) 0%,
-      rgba(0, 0, 0, 0.4) 100%
-    );
+    object-fit: ${({ fit }) => fit};
+    object-position: center;
   }
 `
 
-const Title = styled.p`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${({ theme }) => theme.cream};
-  margin-bottom: 0.5rem;
-  margin-left: ${({ back }) => (back ? "0" : "0.75rem")};
-  z-index: 1;
-`
-
-const DescriptionContainer = styled.div`
+const Body = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 1rem;
+  flex: 1;
+  min-height: 0;
+  padding: 1.15rem 1.15rem 1rem;
+  gap: 0.6rem;
+`
+
+const Title = styled.h3`
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: ${({ theme, back }) => (back ? theme.forest : theme.cream)};
+  text-wrap: balance;
 `
 
 const DescriptionText = styled.p`
-  font-size: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: ${({ theme }) => theme.primaryText};
-  margin-top: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `
 
 const SkillsList = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: auto;
 `
 
 const SkillPill = styled.span`
   background-color: ${({ theme, back }) =>
-    back ? `${theme.forest}90` : `${theme.bronze}40`};
-  border: 0.5px solid ${({ theme }) => theme.bronze}70;
+    back ? `${theme.forest}90` : `${theme.bronze}1f`};
+  border: 1px solid ${({ theme }) => `${theme.bronze}70`};
   color: ${({ theme, back }) => (back ? theme.cream : theme.bronze)};
-  padding: 0 0.5rem;
+  padding: 0.1rem 0.45rem;
   border-radius: 6px;
   font-size: 0.75rem;
   font-weight: 600;
+  white-space: nowrap;
+`
+
+/* A count, not a technology -- so it should not look like one. */
+const SkillCount = styled.span`
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: ${({ theme }) => theme.oliveText};
+`
+
+const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.15rem;
+`
+
+const PrimaryLink = styled(Link)`
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: ${({ theme, back }) => (back ? theme.forest : theme.bronze)};
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+`
+
+const ComingSoon = styled.span`
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: ${({ theme, back }) => (back ? theme.forest : theme.oliveText)};
+`
+
+const DetailsButton = styled.button`
+  flex: none;
+  font-family: var(--font-montserrat), sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid
+    ${({ theme, back }) => (back ? theme.forest : theme.oliveText)};
+  color: ${({ theme, back }) => (back ? theme.forest : theme.oliveText)};
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background-color: ${({ theme, back }) =>
+      back ? `${theme.forest}20` : `${theme.oliveText}25`};
+  }
 `
 
 const StatsContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  gap: 1rem;
-  margin: 0.75rem 0;
+  gap: 0.75rem;
 `
 
 const Stat = styled.div`
@@ -136,44 +192,45 @@ const Stat = styled.div`
   background-color: ${({ theme }) => `${theme.cream}20`};
   border: 1px solid ${({ theme }) => `${theme.cream}40`};
   border-radius: 0.5rem;
-  padding: 0.75rem;
+  padding: 0.6rem 0.5rem;
 `
 
 const StatNumber = styled.span`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
+  line-height: 1.1;
   color: ${({ theme }) => theme.forest};
+  font-variant-numeric: tabular-nums;
 `
 
 const StatLabel = styled.span`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.cream};
-  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.forest};
+  margin-top: 0.15rem;
   text-align: center;
+  line-height: 1.3;
 `
 
 const TechText = styled.p`
-  margin-bottom: 0.25rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.cream};
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.forest};
+  opacity: 0.75;
 `
 
-const LinkText = styled.span`
-  font-size: 1rem;
-  color: ${({ theme }) => theme.cream};
-  text-decoration: ${({ noLink }) => (noLink ? "none" : "underline")};
-  margin-top: ${({ noLink }) => (noLink ? "auto" : "1rem")};
-  text-align: center;
+const BackSkills = styled(SkillsList)`
+  margin-top: 0;
+  align-content: flex-start;
+  overflow: hidden;
 `
 
 const StoreBadges = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-top: auto;
+  gap: 1rem;
 `
 
 const StoreBadge = styled(Link)`
@@ -191,8 +248,8 @@ const StoreBadge = styled(Link)`
   }
 
   img {
-    width: 2.75rem;
-    height: 2.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
     display: block;
   }
 `
@@ -207,6 +264,7 @@ export const ProjectCard = forwardRef(
       appStoreUrl = null,
       playStoreUrl = null,
       imgSrc = null,
+      imgFit = "contain",
       skills = [],
       stats = [],
     },
@@ -214,155 +272,164 @@ export const ProjectCard = forwardRef(
   ) => {
     const innerRef = useRef(null)
     const [flipped, setFlipped] = useState(false)
+    const backId = useId()
 
-    const handleMouseEnter = () => {
-      gsap.killTweensOf(innerRef.current)
-      const tl = gsap.timeline()
+    useEffect(() => {
+      const el = innerRef.current
+      if (!el) return
 
-      tl.to(innerRef.current, {
-        rotationY: 195,
-        duration: 0.4,
-        ease: "power2.out",
-      })
-        .to(innerRef.current, {
-          rotationY: 165,
-          duration: 0.2,
-          ease: "power0",
-        })
-        .to(innerRef.current, {
-          rotationY: 180,
-          duration: 0.5,
-          ease: "power0",
-        })
+      gsap.killTweensOf(el)
+
+      if (prefersReducedMotion()) {
+        gsap.set(el, { rotationY: flipped ? 180 : 0 })
+        return
+      }
+
+      // slight overshoot, then settle
+      const target = flipped ? 180 : 0
+      const overshoot = flipped ? 195 : -15
+      gsap
+        .timeline()
+        .to(el, { rotationY: overshoot, duration: 0.4, ease: "power2.out" })
+        .to(el, { rotationY: target, duration: 0.45, ease: "power2.inOut" })
+    }, [flipped])
+
+    const renderLink = (back) => {
+      if (appStoreUrl || playStoreUrl) {
+        return (
+          <StoreBadges>
+            {appStoreUrl && (
+              <StoreBadge
+                href={appStoreUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${title} on the App Store`}
+              >
+                <Image
+                  src="/images/app-store-icon.svg"
+                  width={36}
+                  height={36}
+                  alt=""
+                />
+              </StoreBadge>
+            )}
+            {playStoreUrl && (
+              <StoreBadge
+                href={playStoreUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${title} on Google Play`}
+              >
+                <Image
+                  src="/images/google-play-icon.svg"
+                  width={36}
+                  height={36}
+                  alt=""
+                />
+              </StoreBadge>
+            )}
+          </StoreBadges>
+        )
+      }
+      if (link) {
+        return (
+          <PrimaryLink
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            back={back}
+            aria-label={`${linkText}: ${title}`}
+          >
+            {linkText} &rarr;
+          </PrimaryLink>
+        )
+      }
+      return <ComingSoon back={back}>Coming soon</ComingSoon>
     }
 
-    const handleMouseLeave = () => {
-      gsap.killTweensOf(innerRef.current)
-      const tl = gsap.timeline()
+    const toggle = () => setFlipped((f) => !f)
 
-      tl.to(innerRef.current, {
-        rotationY: -15,
-        duration: 0.4,
-        ease: "power2.out",
-      })
-        .to(innerRef.current, {
-          rotationY: 15,
-          duration: 0.2,
-          ease: "power0",
-        })
-        .to(innerRef.current, {
-          rotationY: 0,
-          duration: 0.5,
-          ease: "power0.out",
-        })
-    }
+    const detailsButton = (back) => (
+      <DetailsButton
+        type="button"
+        back={back}
+        onClick={toggle}
+        aria-expanded={flipped}
+        aria-controls={backId}
+        aria-label={`${flipped ? "Hide" : "Show"} details for ${title}`}
+      >
+        {back ? "Back" : "Details"}
+      </DetailsButton>
+    )
 
-    const handleTap = () => {
-      setFlipped((prev) => !prev)
-      gsap.killTweensOf(innerRef.current)
-      gsap.to(innerRef.current, {
-        rotationY: flipped ? 0 : 180,
-        duration: 0.8,
-        ease: "power2.out",
-      })
-      gsap.to(innerRef.current, {
-        rotationY: flipped ? 0 : 180,
-        duration: 0.5,
-        ease: "elastic.out(1,0.3)",
-        delay: 0.8,
-      })
-    }
+    const shown = skills.slice(0, 4)
+    const remaining = skills.length - shown.length
 
     return (
-      <FlipCard
-        ref={ref}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTap}
-      >
+      <FlipCard ref={ref}>
         <FlipInner ref={innerRef}>
-          <CardFront>
-            <ImageContainer>
-              <ImageWrapper>
-                {imgSrc && <Image src={imgSrc} fill alt={title} />}
-              </ImageWrapper>
+          {/* whichever face is turned away is removed from the tab order, so
+              keyboard users never land on a link they cannot see. */}
+          <CardFront
+            data-face
+            inert={flipped ? true : undefined}
+            aria-hidden={flipped}
+          >
+            <Thumb fit={imgFit}>
+              {imgSrc && (
+                <Image
+                  src={imgSrc}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 380px"
+                  alt={`${title} project artwork`}
+                />
+              )}
+            </Thumb>
+            <Body>
               <Title>{title}</Title>
-            </ImageContainer>
-            <DescriptionContainer>
               <DescriptionText>{description}</DescriptionText>
               <SkillsList>
-                {skills.slice(0, 3).map((skill, idx) => (
-                  <SkillPill key={idx}>{skill}</SkillPill>
+                {shown.map((skill) => (
+                  <SkillPill key={skill}>{skill}</SkillPill>
                 ))}
-                {skills.length > 3 && (
-                  <SkillPill>+{skills.length - 3}</SkillPill>
-                )}
+                {remaining > 0 && <SkillCount>+{remaining} more</SkillCount>}
               </SkillsList>
-            </DescriptionContainer>
+              <Actions>
+                {renderLink(false)}
+                {detailsButton(false)}
+              </Actions>
+            </Body>
           </CardFront>
 
-          <CardBack>
+          <CardBack
+            data-face
+            id={backId}
+            inert={flipped ? undefined : true}
+            aria-hidden={!flipped}
+          >
             <Title back>{title}</Title>
-            <StatsContainer>
-              {stats.map((stat, idx) => (
-                <Stat key={idx}>
-                  <StatNumber>{stat.num}</StatNumber>
-                  <StatLabel>{stat.label}</StatLabel>
-                </Stat>
-              ))}
-            </StatsContainer>
-            <TechText>Technologies</TechText>
-            <SkillsList>
-              {skills.map((skill, idx) => (
-                <SkillPill back key={idx}>
+            {stats.length > 0 && (
+              <StatsContainer>
+                {stats.map((stat) => (
+                  <Stat key={stat.label}>
+                    <StatNumber>{stat.num}</StatNumber>
+                    <StatLabel>{stat.label}</StatLabel>
+                  </Stat>
+                ))}
+              </StatsContainer>
+            )}
+            <TechText>Built with</TechText>
+            <BackSkills>
+              {skills.map((skill) => (
+                <SkillPill back key={skill}>
                   {skill}
                 </SkillPill>
               ))}
-            </SkillsList>
-
-            {appStoreUrl || playStoreUrl ? (
-              <StoreBadges>
-                {appStoreUrl && (
-                  <StoreBadge
-                    href={appStoreUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src="/images/app-store-icon.svg"
-                      width={44}
-                      height={44}
-                      alt="Download on the App Store"
-                    />
-                  </StoreBadge>
-                )}
-                {playStoreUrl && (
-                  <StoreBadge
-                    href={playStoreUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Image
-                      src="/images/google-play-icon.svg"
-                      width={44}
-                      height={44}
-                      alt="Get it on Google Play"
-                    />
-                  </StoreBadge>
-                )}
-              </StoreBadges>
-            ) : link ? (
-              <Link
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ marginTop: "auto", textAlign: "center" }}
-              >
-                <LinkText>{linkText} &rarr;</LinkText>
-              </Link>
-            ) : (
-              <LinkText noLink>Coming soon...</LinkText>
-            )}
+            </BackSkills>
+            <Actions style={{ marginTop: "auto" }}>
+              {renderLink(true)}
+              {detailsButton(true)}
+            </Actions>
           </CardBack>
         </FlipInner>
       </FlipCard>

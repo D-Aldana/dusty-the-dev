@@ -3,7 +3,7 @@ import Link from "next/link"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import {
   FryingPanIcon,
   BoxingGlovesIcon,
@@ -14,6 +14,7 @@ import {
 } from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { breakpoints } from "@/styles/theme"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,11 +24,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 2rem;
-
-  ${breakpoints.mobile} {
-    padding: 2rem 0;
-  }
+  padding-block: 2rem;
 `
 
 const Header = styled.h1`
@@ -107,6 +104,7 @@ export const BeyondTheKeyboard = () => {
   useEffect(() => {
     const element = containerRef.current
     if (!element) return
+    if (prefersReducedMotion()) return
 
     gsap.fromTo(
       element,
@@ -167,7 +165,7 @@ export const BeyondTheKeyboard = () => {
             <Link
               href={process.env.NEXT_PUBLIC_CHESS_URL}
               passHref
-              style={{ marginLeft: "0.5rem", color: theme.accent }}
+              style={{ marginLeft: "0.5rem", color: theme.bronze }}
               target="_blank"
               rel="noopener noreferrer"
             >

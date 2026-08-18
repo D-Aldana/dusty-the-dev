@@ -1,7 +1,7 @@
 import { forwardRef, useRef, useEffect } from "react"
 import { gsap } from "gsap"
 import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger)
 
@@ -51,7 +51,7 @@ export const RocketIcon = forwardRef((props, ref) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="lucide lucide-rocket h-10 w-10"
+      className="lucide lucide-rocket"
       aria-hidden="true"
     >
       <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
