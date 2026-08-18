@@ -1,25 +1,21 @@
 import { forwardRef, useRef, useEffect } from "react"
 import styled from "@emotion/styled"
 import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ProjectCard } from "@/components/project-card"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, container } from "@/styles/theme"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
+  ${container};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 2rem;
+  padding-block: 2rem;
   margin-top: 2rem;
   position: relative;
-
-  ${breakpoints.mobile} {
-    padding: 2rem 0;
-  }
 `
 
 const WaveBackground = styled.div`

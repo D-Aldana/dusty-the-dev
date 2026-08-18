@@ -3,7 +3,7 @@ import Link from "next/link"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import {
   FryingPanIcon,
   BoxingGlovesIcon,
@@ -23,11 +23,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 2rem;
-
-  ${breakpoints.mobile} {
-    padding: 2rem 0;
-  }
+  padding-block: 2rem;
 `
 
 const Header = styled.h1`

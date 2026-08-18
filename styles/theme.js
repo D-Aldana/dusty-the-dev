@@ -1,7 +1,27 @@
 export const breakpoints = {
   mobile: "@media (max-width: 1024px)",
-  desktop: "@media (min-width: 1024px)",
+  tablet: "@media (min-width: 641px) and (max-width: 1024px)",
+  desktop: "@media (min-width: 1025px)",
 }
+
+export const layout = {
+  maxWidth: "1200px",
+  gutter: "2rem",
+  gutterMobile: "1.25rem",
+}
+
+/* One measure and one gutter for every top-level section, so content aligns
+   down the page instead of each section setting its own edge. */
+export const container = `
+  width: 100%;
+  max-width: ${layout.maxWidth};
+  margin-inline: auto;
+  padding-inline: ${layout.gutter};
+
+  ${breakpoints.mobile} {
+    padding-inline: ${layout.gutterMobile};
+  }
+`
 
 export const theme = {
   light: {

@@ -14,25 +14,22 @@ import {
   AirplaneIcon,
 } from "@/components/icons"
 import { sendEmail } from "@/util/sendEmail"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, container } from "@/styles/theme"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
+  ${container};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  padding: 1rem 4rem;
+  padding-block: 1rem;
   gap: 1rem;
   position: relative;
   overflow: hidden;
   margin-bottom: 1rem;
-
-  ${breakpoints.mobile} {
-    padding: 0 2rem;
-  }
 `
 
 const Header = styled.div`
@@ -529,7 +526,7 @@ export const ContactMe = forwardRef((props, ref) => {
           />
 
           <SubmitButton type="submit" disabled={isSubmitting}>
-            <AirplaneIcon width={10} height={10} />
+            <AirplaneIcon width={18} height={18} />
             {isSubmitting ? "Sending..." : "Send Message"}
           </SubmitButton>
         </ContactForm>

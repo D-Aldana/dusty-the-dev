@@ -29,7 +29,7 @@ export const ChevronDownIcon = forwardRef(
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="lucide lucide-chevron-down h-8 w-8"
+        className="lucide lucide-chevron-down"
         aria-hidden="true"
       >
         <path d="m6 9 6 6 6-6" />

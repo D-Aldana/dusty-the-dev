@@ -11,24 +11,20 @@ import {
   DesignIcon,
   RocketIcon,
 } from "@/components/icons"
-import { breakpoints } from "@/styles/theme"
+import { breakpoints, container } from "@/styles/theme"
 
 gsap.registerPlugin(ScrollTrigger)
 
 const Container = styled.div`
+  ${container};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  padding: 0 4rem;
   gap: 1rem;
   position: relative;
   overflow: hidden;
-
-  ${breakpoints.mobile} {
-    padding: 0 2rem;
-  }
 `
 
 const WaveBackground = styled.div`

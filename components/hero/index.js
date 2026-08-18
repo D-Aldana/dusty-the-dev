@@ -293,7 +293,7 @@ export const Hero = ({ onContinue, onClickProjects, onClickContact }) => {
           transition={{ delay: 0.9, duration: 0.35 }}
         >
           <ContinueButton onClick={onContinue}>
-            <ChevronDownIcon color={theme.olive} />
+            <ChevronDownIcon color={theme.olive} width={32} height={32} />
           </ContinueButton>
         </motion.div>
       </HeroContainer>

@@ -14,7 +14,7 @@ export const ContactEnvelope = forwardRef((props, ref) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="lucide lucide-mail h-6 w-6 text-olive dark:text-bronze"
+      className="lucide lucide-mail text-olive dark:text-bronze"
       aria-hidden="true"
     >
       <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>

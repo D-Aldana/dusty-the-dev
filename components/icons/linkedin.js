@@ -5,7 +5,7 @@ import { DrawSVGPlugin } from "gsap/DrawSVGPlugin"
 gsap.registerPlugin(DrawSVGPlugin)
 
 export const LinkedinIcon = forwardRef(
-  ({ width = 150, height = 150, delay = 0, duration = 2 }, ref) => {
+  ({ width = 24, height = 24, delay = 0, duration = 2 }, ref) => {
     const iconRef = useRef(null)
     const circleRef = useRef(null)
     const tlRef = useRef(null)
@@ -65,7 +65,7 @@ export const LinkedinIcon = forwardRef(
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="lucide lucide-linkedin h-6 w-6"
+        className="lucide lucide-linkedin"
         aria-hidden="true"
       >
         <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>

@@ -3,8 +3,8 @@ import Image from "next/image"
 import styled from "@emotion/styled"
 import { useTheme } from "@emotion/react"
 import { gsap } from "gsap"
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
-import { breakpoints } from "@/styles/theme"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { breakpoints, container } from "@/styles/theme"
 import { Base } from "@/components/base"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { ImageFolder } from "@/components/image-folder"
@@ -43,12 +43,12 @@ const WaveBackground = styled.div`
 `
 
 const Container = styled.div`
+  ${container};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  padding: 0 1.5rem;
   gap: 1rem;
   position: relative;
   overflow: hidden;
