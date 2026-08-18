@@ -12,6 +12,12 @@ const FlipCard = styled.div`
   perspective: 1400px;
   width: 100%;
   height: ${CARD_HEIGHT};
+
+  &:hover [data-face],
+  &:focus-within [data-face] {
+    border-color: ${({ theme }) => theme.bronze};
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
 `
 
 const FlipInner = styled.div`
@@ -25,11 +31,14 @@ const CardFace = styled.div`
   position: absolute;
   inset: 0;
   backface-visibility: hidden;
-  border: 2px solid ${({ theme }) => `${theme.olive}`};
+  border: 2px solid ${({ theme }) => theme.olive};
   border-radius: 0.75rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
 `
 
 const CardFront = styled(CardFace)`
@@ -262,13 +271,8 @@ export const ProjectCard = forwardRef(
     ref,
   ) => {
     const innerRef = useRef(null)
-    const [hovered, setHovered] = useState(false)
-    const [pinned, setPinned] = useState(false)
+    const [flipped, setFlipped] = useState(false)
     const backId = useId()
-
-    // one source of truth: pointer hover or an explicit toggle both flip it,
-    // and the toggle survives the pointer leaving.
-    const flipped = pinned || hovered
 
     useEffect(() => {
       const el = innerRef.current
@@ -281,8 +285,7 @@ export const ProjectCard = forwardRef(
         return
       }
 
-      // slight overshoot, then settle -- the wobble the card always had, but
-      // driven from state rather than from two competing event handlers.
+      // slight overshoot, then settle
       const target = flipped ? 180 : 0
       const overshoot = flipped ? 195 : -15
       gsap
@@ -344,7 +347,7 @@ export const ProjectCard = forwardRef(
       return <ComingSoon back={back}>Coming soon</ComingSoon>
     }
 
-    const toggle = () => setPinned((p) => !p)
+    const toggle = () => setFlipped((f) => !f)
 
     const detailsButton = (back) => (
       <DetailsButton
@@ -363,15 +366,15 @@ export const ProjectCard = forwardRef(
     const remaining = skills.length - shown.length
 
     return (
-      <FlipCard
-        ref={ref}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
+      <FlipCard ref={ref}>
         <FlipInner ref={innerRef}>
           {/* whichever face is turned away is removed from the tab order, so
               keyboard users never land on a link they cannot see. */}
-          <CardFront inert={flipped ? true : undefined} aria-hidden={flipped}>
+          <CardFront
+            data-face
+            inert={flipped ? true : undefined}
+            aria-hidden={flipped}
+          >
             <Thumb fit={imgFit}>
               {imgSrc && (
                 <Image
@@ -399,6 +402,7 @@ export const ProjectCard = forwardRef(
           </CardFront>
 
           <CardBack
+            data-face
             id={backId}
             inert={flipped ? undefined : true}
             aria-hidden={!flipped}
