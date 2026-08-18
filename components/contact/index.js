@@ -15,6 +15,7 @@ import {
 } from "@/components/icons"
 import { sendEmail } from "@/util/sendEmail"
 import { breakpoints, container } from "@/styles/theme"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -350,6 +351,7 @@ export const ContactMe = forwardRef((props, ref) => {
   const baseRef = useRef(null)
 
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const mm = gsap.matchMedia()
 
     mm.add(

@@ -14,6 +14,7 @@ import {
 } from "@/components/icons"
 import { SpotlightCard } from "@/components/spotlight-card"
 import { breakpoints } from "@/styles/theme"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -103,6 +104,7 @@ export const BeyondTheKeyboard = () => {
   useEffect(() => {
     const element = containerRef.current
     if (!element) return
+    if (prefersReducedMotion()) return
 
     gsap.fromTo(
       element,

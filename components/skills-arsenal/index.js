@@ -12,6 +12,7 @@ import {
   RocketIcon,
 } from "@/components/icons"
 import { breakpoints, container } from "@/styles/theme"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -148,6 +149,7 @@ export const SkillsArsenal = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (!baseRef.current || !containerRef.current) return
+    if (prefersReducedMotion()) return
 
     gsap.fromTo(
       containerRef.current,

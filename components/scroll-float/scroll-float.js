@@ -3,6 +3,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 import "./scroll-float.css"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -31,6 +32,7 @@ export const ScrollFloat = ({
   useEffect(() => {
     const el = containerRef.current
     if (!el) return
+    if (prefersReducedMotion()) return
 
     const scroller =
       scrollContainerRef && scrollContainerRef.current

@@ -4,6 +4,7 @@ import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ProjectCard } from "@/components/project-card"
 import { breakpoints, container } from "@/styles/theme"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -76,6 +77,7 @@ export const Projects = forwardRef((props, ref) => {
   useEffect(() => {
     const container = ref.current
     if (!container) return
+    if (prefersReducedMotion()) return
 
     gsap.fromTo(
       container,

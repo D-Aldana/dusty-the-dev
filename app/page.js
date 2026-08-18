@@ -1,8 +1,10 @@
 "use client"
 import { useState, useRef, useEffect } from "react"
 import { ThemeProvider } from "@emotion/react"
+import { MotionConfig } from "framer-motion"
 import styled from "@emotion/styled"
 import { theme } from "@/styles/theme"
+import { prefersReducedMotion } from "@/util/motion"
 import {
   Hero,
   About,
@@ -41,28 +43,17 @@ export default function HomePage() {
 
   if (!mounted) return null
 
-  const scrollToAbout = () => {
-    if (aboutRef.current) {
-      aboutRef.current.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
-  const scrollToProjects = () => {
-    if (projectsRef) {
-      projectsRef.current.scrollIntoView({ behavior: "smooth" })
-    }
-  }
-
-  const scrollToContact = () => {
-    if (contactRef) {
-      contactRef.current.scrollIntoView({ behavior: "smooth" })
-    }
+  const scrollTo = (sectionRef) => () => {
+    sectionRef.current?.scrollIntoView({
+      behavior: prefersReducedMotion() ? "auto" : "smooth",
+    })
   }
 
   return (
     <ThemeProvider theme={currentTheme}>
-      <Main>
-        {/* <button
+      <MotionConfig reducedMotion="user">
+        <Main>
+          {/* <button
           style={{
             position: "fixed",
             top: "1rem",
@@ -74,17 +65,18 @@ export default function HomePage() {
         >
           Toggle Theme
         </button> */}
-        <Hero
-          onContinue={scrollToAbout}
-          onClickProjects={scrollToProjects}
-          onClickContact={scrollToContact}
-        />
-        <About ref={aboutRef} />
-        <SkillsArsenal ref={skillsRef} />
-        <Projects ref={projectsRef} />
-        <Timeline ref={timelineRef} />
-        <ContactMe ref={contactRef} />
-      </Main>
+          <Hero
+            onContinue={scrollTo(aboutRef)}
+            onClickProjects={scrollTo(projectsRef)}
+            onClickContact={scrollTo(contactRef)}
+          />
+          <About ref={aboutRef} />
+          <SkillsArsenal ref={skillsRef} />
+          <Projects ref={projectsRef} />
+          <Timeline ref={timelineRef} />
+          <ContactMe ref={contactRef} />
+        </Main>
+      </MotionConfig>
     </ThemeProvider>
   )
 }

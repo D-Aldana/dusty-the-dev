@@ -10,6 +10,7 @@ import { SpotlightCard } from "@/components/spotlight-card"
 import { ImageFolder } from "@/components/image-folder"
 import { BeyondTheKeyboard } from "@/components/beyond-the-keyboard"
 import { MyStory as myStoryContent } from "@/util/consts"
+import { prefersReducedMotion } from "@/util/motion"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -307,6 +308,7 @@ export const About = forwardRef((props, ref) => {
 
   useEffect(() => {
     if (typeof window === "undefined") return
+    if (prefersReducedMotion()) return
     const mm = gsap.matchMedia()
 
     mm.add(

@@ -11,6 +11,30 @@ body {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* the page ground, so there is no white flash before the app paints */
+  background-color: #283618;
+}
+
+/* Brand focus ring. The global `outline-ring/50` below only sets a colour,
+   which left the browser default too faint against the dark olive ground. */
+:focus-visible {
+  outline: 2px solid #dda15e;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
 }
 
 * {
