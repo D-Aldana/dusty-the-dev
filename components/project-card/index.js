@@ -107,6 +107,9 @@ const SkillsList = styled.div`
   align-items: center;
   gap: 0.35rem;
   margin-top: auto;
+  /* three pills plus a count fit one row at every card width, so reserving a
+     single row keeps the actions on the same baseline across all cards. */
+  min-height: 1.45rem;
 `
 
 const SkillPill = styled.span`
@@ -121,11 +124,13 @@ const SkillPill = styled.span`
   white-space: nowrap;
 `
 
-/* A count, not a technology -- so it should not look like one. */
-const SkillCount = styled.span`
-  font-size: 0.75rem;
-  font-weight: 600;
+/* Same metrics as a pill, but dashed and unfilled: clearly "more of these",
+   not another technology. */
+const SkillCount = styled(SkillPill)`
+  background-color: transparent;
+  border-style: dashed;
   color: ${({ theme }) => theme.oliveText};
+  border-color: ${({ theme }) => `${theme.oliveText}80`};
 `
 
 const Actions = styled.div`
@@ -134,6 +139,9 @@ const Actions = styled.div`
   justify-content: space-between;
   gap: 0.75rem;
   padding-top: 0.15rem;
+  /* store badges are taller than a text link; reserving the taller height keeps
+     the pill row on the same baseline whichever variant a card uses. */
+  min-height: 2.375rem;
 `
 
 // styled() on a component forwards every prop, so `back` would reach the <a>
@@ -365,7 +373,7 @@ export const ProjectCard = forwardRef(
       </DetailsButton>
     )
 
-    const shown = skills.slice(0, 4)
+    const shown = skills.slice(0, 3)
     const remaining = skills.length - shown.length
 
     return (
@@ -395,7 +403,13 @@ export const ProjectCard = forwardRef(
                 {shown.map((skill) => (
                   <SkillPill key={skill}>{skill}</SkillPill>
                 ))}
-                {remaining > 0 && <SkillCount>+{remaining} more</SkillCount>}
+                {remaining > 0 && (
+                  <SkillCount
+                    aria-label={`${remaining} more technologies, shown on the back`}
+                  >
+                    +{remaining}
+                  </SkillCount>
+                )}
               </SkillsList>
               <Actions>
                 {renderLink(false)}
