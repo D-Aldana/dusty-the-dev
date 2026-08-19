@@ -427,8 +427,9 @@ export const About = forwardRef((props, ref) => {
         <ImageContainer ref={photoRef}>
           <Image
             src="/images/hiking.jpg"
-            alt="Dustin's Picture"
+            alt="Dustin outdoors with a hiking pack, forested hills behind him"
             fill
+            sizes="(max-width: 1024px) 100vw, 560px"
             style={{
               objectFit: "cover",
               objectPosition: "top",

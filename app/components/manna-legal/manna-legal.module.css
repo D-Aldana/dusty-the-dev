@@ -167,9 +167,7 @@
   color: var(--accent-strong);
   font-weight: 600;
   border-bottom: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
-  transition:
-    border-color 0.2s ease,
-    color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .body a:hover {
