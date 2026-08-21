@@ -188,6 +188,7 @@ export const Hero = ({
 }) => {
   const theme = useTheme()
   const [envOpen, setEnvOpen] = useState(false)
+  const [pageTurned, setPageTurned] = useState(false)
 
   return (
     <Container>
@@ -263,8 +264,14 @@ export const Hero = ({
             {/* the blog section unmounts when there are no posts, so the
                 button only shows when there is somewhere to scroll to */}
             {onClickBlog && (
-              <Button onClick={onClickBlog}>
-                <BookIcon width={18} height={18} />
+              <Button
+                onMouseEnter={() => setPageTurned(true)}
+                onMouseLeave={() => setPageTurned(false)}
+                onFocus={() => setPageTurned(true)}
+                onBlur={() => setPageTurned(false)}
+                onClick={onClickBlog}
+              >
+                <BookIcon width={20} height={20} turnPage={pageTurned} />
                 <ButtonText>Read the Blog</ButtonText>
               </Button>
             )}
