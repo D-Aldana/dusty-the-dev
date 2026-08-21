@@ -1,12 +1,28 @@
 import { forwardRef, useRef, useEffect } from "react"
 import { gsap } from "gsap"
+import { prefersReducedMotion } from "@/util/motion"
+
+const PAGE_OPACITY = 0.28
+const PAGE_OPACITY_LIFT = 0.5
+
+/* The right-hand page, closed along the spine so it can flip over onto the
+   left page. Only rendered when a caller opts in via `turnPage`. */
+const RIGHT_PAGE =
+  "M12 6.90909C13.1001 5.50893 14.7959 4.10877 18.9988 4.00602C19.2749 3.99928 19.5 4.21847 19.5 4.49461C19.5 6.78447 19.5 14.3064 19.5 16.5963C19.5 16.8724 19.2749 17.09 18.9989 17.099C14.796 17.2364 13.1001 19.0998 12 20.5Z"
 
 export const BookIcon = forwardRef(
   (
-    { height = 100, width = 100, color = "currentColor", animate = false },
+    {
+      height = 100,
+      width = 100,
+      color = "currentColor",
+      animate = false,
+      turnPage = null,
+    },
     ref,
   ) => {
     const iconRef = useRef(null)
+    const pageRef = useRef(null)
 
     useEffect(() => {
       if (animate && iconRef.current) {
@@ -34,6 +50,38 @@ export const BookIcon = forwardRef(
       }
     }, [animate])
 
+    const flippable = turnPage !== null
+
+    useEffect(() => {
+      const page = pageRef.current
+      if (!flippable || !page) return
+
+      /* scaleX across the spine rather than rotationY: a 2D transform behaves
+         the same in every browser that renders SVG. */
+      const flipped = { scaleX: turnPage ? -1 : 1, svgOrigin: "12 12" }
+
+      if (prefersReducedMotion()) {
+        gsap.set(page, { ...flipped, fillOpacity: PAGE_OPACITY })
+        return
+      }
+
+      gsap.to(page, {
+        ...flipped,
+        duration: 0.6,
+        ease: "power2.inOut",
+        overwrite: "auto",
+      })
+
+      // brightest halfway through, where the page is edge-on to the reader
+      gsap.to(page, {
+        keyframes: [
+          { fillOpacity: PAGE_OPACITY_LIFT, duration: 0.3 },
+          { fillOpacity: PAGE_OPACITY, duration: 0.3 },
+        ],
+        overwrite: "auto",
+      })
+    }, [flippable, turnPage])
+
     return (
       <svg
         ref={iconRef}
@@ -48,6 +96,16 @@ export const BookIcon = forwardRef(
           stroke={color}
           strokeLinejoin="round"
         />
+        {flippable && (
+          <path
+            ref={pageRef}
+            d={RIGHT_PAGE}
+            fill={color}
+            fillOpacity={PAGE_OPACITY}
+            stroke={color}
+            strokeLinejoin="round"
+          />
+        )}
         <path
           d="M19.2353 6H21.5C21.7761 6 22 6.22386 22 6.5V19.539C22 19.9436 21.5233 20.2124 21.1535 20.0481C20.3584 19.6948 19.0315 19.2632 17.2941 19.2632C14.3529 19.2632 12 21 12 21C12 21 9.64706 19.2632 6.70588 19.2632C4.96845 19.2632 3.64156 19.6948 2.84647 20.0481C2.47668 20.2124 2 19.9436 2 19.539V6.5C2 6.22386 2.22386 6 2.5 6H4.76471"
           stroke={color}

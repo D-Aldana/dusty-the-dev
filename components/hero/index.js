@@ -10,6 +10,7 @@ import {
   LinkedinIcon,
   InstagramIcon,
   ChevronDownIcon,
+  BookIcon,
 } from "@/components/icons"
 import { RotatingText as BaseRotatingText } from "@/components/rotating-text"
 import { breakpoints } from "@/styles/theme"
@@ -112,6 +113,8 @@ const RotatingTextWrapper = styled(BaseRotatingText)`
 
 const CTAContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 `
 
@@ -177,9 +180,15 @@ const ContinueButton = styled.button`
   padding: 1rem 4rem;
 `
 
-export const Hero = ({ onContinue, onClickProjects, onClickContact }) => {
+export const Hero = ({
+  onContinue,
+  onClickProjects,
+  onClickBlog,
+  onClickContact,
+}) => {
   const theme = useTheme()
   const [envOpen, setEnvOpen] = useState(false)
+  const [pageTurned, setPageTurned] = useState(false)
 
   return (
     <Container>
@@ -252,6 +261,20 @@ export const Hero = ({ onContinue, onClickProjects, onClickContact }) => {
             <Button onClick={onClickProjects}>
               <ButtonText>View Projects</ButtonText>
             </Button>
+            {/* the blog section unmounts when there are no posts, so the
+                button only shows when there is somewhere to scroll to */}
+            {onClickBlog && (
+              <Button
+                onMouseEnter={() => setPageTurned(true)}
+                onMouseLeave={() => setPageTurned(false)}
+                onFocus={() => setPageTurned(true)}
+                onBlur={() => setPageTurned(false)}
+                onClick={onClickBlog}
+              >
+                <BookIcon width={20} height={20} turnPage={pageTurned} />
+                <ButtonText>Read the Blog</ButtonText>
+              </Button>
+            )}
           </CTAContainer>
         </motion.div>
 
