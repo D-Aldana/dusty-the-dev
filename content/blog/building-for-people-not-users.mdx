@@ -1,0 +1,62 @@
+---
+title: "Building for people, not users"
+date: "2026-04-02"
+excerpt: "CareMobi put me in rooms with nurses, patients, and worried family members. It changed how I write code more than any framework has."
+tags: ["Next.js", "Django", "Healthcare", "UX"]
+readingTimeMinutes: 6
+---
+
+> This is placeholder writing — swap the copy, keep the frontmatter.
+
+The word "user" is doing a lot of quiet damage. It flattens a frightened
+daughter coordinating her dad's discharge and a nurse on hour eleven of a
+twelve-hour shift into the same abstract shape with the same abstract needs.
+Working on CareMobi cured me of it fast.
+
+## The form nobody could finish
+
+Our onboarding flow was, on paper, excellent. Eleven fields, clean validation,
+inline errors, a progress bar. It tested beautifully. Then we watched real
+families use it and the completion rate cratered around field six — the one
+asking for a diagnosis.
+
+Turns out people filling out a care profile often don't know the diagnosis yet.
+That's frequently _why_ they're there. We'd built a form that required you to
+already have the thing you were looking for.
+
+The fix wasn't technical:
+
+1. Make every clinical field optional
+2. Ask for a relationship instead ("I'm caring for my father")
+3. Let the profile fill in over weeks, not minutes
+
+Completion went up sharply, and support tickets that started with "I don't know
+what to put" disappeared.
+
+## Latency is a trust problem
+
+In most apps a 900ms response is a polish issue. In a care app, a spinner
+between "send" and "your nurse got this" is someone wondering whether their
+message about medication reached a human. We moved to optimistic updates with
+an explicit delivery state, and stopped treating the loading state as a
+throwaway:
+
+```jsx
+<Message status={message.status} /> // queued | sent | seen
+```
+
+Three words of state removed an entire category of anxious follow-up messages.
+
+## Accessibility isn't an edge case here
+
+Our median caregiver was not a twenty-eight-year-old with perfect vision on a
+new iPhone. Font scaling, contrast, and tap targets weren't a compliance
+checklist — they were the product working or not working. Once I started
+building with that as the default assumption, the "accessible" version just
+became the version.
+
+## The part that stuck
+
+I now try to name the person before I write the component. Not `user`, not
+`account` — "Marguerite, 71, on her daughter's iPad, tired." It sounds twee.
+It also catches more design mistakes than any code review I've ever sat in.

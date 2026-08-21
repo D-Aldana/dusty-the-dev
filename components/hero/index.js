@@ -10,6 +10,7 @@ import {
   LinkedinIcon,
   InstagramIcon,
   ChevronDownIcon,
+  BookIcon,
 } from "@/components/icons"
 import { RotatingText as BaseRotatingText } from "@/components/rotating-text"
 import { breakpoints } from "@/styles/theme"
@@ -112,6 +113,8 @@ const RotatingTextWrapper = styled(BaseRotatingText)`
 
 const CTAContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
 `
 
@@ -177,7 +180,12 @@ const ContinueButton = styled.button`
   padding: 1rem 4rem;
 `
 
-export const Hero = ({ onContinue, onClickProjects, onClickContact }) => {
+export const Hero = ({
+  onContinue,
+  onClickProjects,
+  onClickBlog,
+  onClickContact,
+}) => {
   const theme = useTheme()
   const [envOpen, setEnvOpen] = useState(false)
 
@@ -252,6 +260,14 @@ export const Hero = ({ onContinue, onClickProjects, onClickContact }) => {
             <Button onClick={onClickProjects}>
               <ButtonText>View Projects</ButtonText>
             </Button>
+            {/* the blog section unmounts when there are no posts, so the
+                button only shows when there is somewhere to scroll to */}
+            {onClickBlog && (
+              <Button onClick={onClickBlog}>
+                <BookIcon width={18} height={18} />
+                <ButtonText>Read the Blog</ButtonText>
+              </Button>
+            )}
           </CTAContainer>
         </motion.div>
 

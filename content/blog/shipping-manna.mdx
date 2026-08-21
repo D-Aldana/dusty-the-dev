@@ -1,0 +1,59 @@
+---
+title: "Shipping Manna: one verse, no notifications"
+date: "2026-06-12"
+excerpt: "I built a Bible app that does almost nothing on purpose. Here's why restraint turned out to be the hardest feature to build."
+tags: ["React Native", "Expo", "Product", "Claude AI"]
+readingTimeMinutes: 5
+---
+
+> This is placeholder writing — swap the copy, keep the frontmatter.
+
+Most faith apps want your attention. Streaks, badges, a 7 a.m. push notification
+telling you that you're falling behind on a reading plan you never chose. I
+wanted the opposite: a quiet room. You type what you're carrying, you get one
+verse back, and then the app gets out of your way.
+
+## The first version was too generous
+
+My first pass did what every side project does — it grew. Journals, history,
+saved verses, a share sheet, a streak counter I told myself was "gentle."
+Two weeks in I opened it on a bad night and felt the same low-grade pressure I
+was trying to design away.
+
+So I deleted most of it:
+
+- No account until you actually need one
+- No notifications at all, not even opt-in
+- No history for the first release
+- One verse per session, and you can't reroll it
+
+That last one was the argument I had with myself the longest. Letting people
+reroll would have made the app feel more responsive and less like a slot machine
+you only get one pull on. But a verse you can reject fifty times isn't an answer
+anymore — it's a search result.
+
+## Where the AI actually sits
+
+Claude doesn't write scripture and it doesn't paraphrase it. It reads the
+entry, picks a theme, and selects from a curated passage set. The verse text
+itself is never generated:
+
+```ts
+const theme = await classifyEntry(entry) // grief, fear, gratitude, ...
+const verse = pickVerse(theme, { excludeRecent: session.seen })
+```
+
+Keeping generation out of the sacred text was non-negotiable, and it made the
+whole feature easier to reason about. A classifier that's occasionally wrong
+gives you a slightly off verse. A generator that's occasionally wrong invents
+scripture.
+
+## What I'd tell myself at the start
+
+Restraint is a feature you have to build, not one you get by skipping work. Every
+thing Manna doesn't do took a deliberate decision, a rejected PR, or a
+half-finished screen I deleted. The app is small because I kept choosing small.
+
+Next up: I'm slowly adding a private, on-device history — because the one thing
+people asked for was the ability to look back at what they wrote, and that turns
+out to be the rare feature that doesn't cost anyone their peace.
