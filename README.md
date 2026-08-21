@@ -40,7 +40,7 @@ To run the project locally:
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/D-Aldana/dusty-the-dev.git
+git clone https://github.com/D-Aldana/built-by-dustin.git
 
 # 2. Install dependencies
 npm install
